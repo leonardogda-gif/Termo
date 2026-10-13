@@ -490,44 +490,75 @@ function setURL(code){try{history.replaceState(null,"",location.pathname+(code?"
 const tries=k=>`${k} tentativa${k>1?"s":""}`;
 
 /* ---------------- rede (PeerJS) ---------------- */
+// Servidores que ajudam os celulares a se acharem (STUN) e, quando a operadora bloqueia,
+// a passar a conexão adiante (TURN). Os dois TURN são os gratuitos do próprio PeerJS.
+const ICE={iceServers:[
+  {urls:["stun:stun.l.google.com:19302","stun:stun1.l.google.com:19302","stun:stun2.l.google.com:19302"]},
+  {urls:"stun:stun.cloudflare.com:3478"},
+  {urls:["turn:eu-0.turn.peerjs.com:3478","turn:us-0.turn.peerjs.com:3478"],username:"peerjs",credential:"peerjsp"}
+]};
+let failures=0, reopenTries=0, openT=null, beatT=null, lastHeard=0;
+function newPeer(id){const o={debug:0,config:ICE};return id?new Peer(id,o):new Peer(o)}
 function openPeer(){
-  clearTimeout(retryT);
+  clearTimeout(retryT);clearTimeout(openT);
   if(peer){try{peer.destroy()}catch(e){} peer=null}
   if(typeof Peer==="undefined"){net="nolib";render();return}
-  net="connecting";render();
+  if(!navigator.onLine){net="nointernet";render();return}
+  net=L.role==="host"?"opening":"connecting";render();
   if(L.role==="host"){
-    peer=new Peer(PREFIX+L.code,{debug:0});
-    peer.on("open",()=>{net=conn&&conn.open?"online":"waiting";render()});
+    peer=newPeer(PREFIX+L.code);
+    peer.on("open",()=>{failures=0;reopenTries=0;net=conn&&conn.open?"online":"waiting";render()});
     peer.on("connection",c=>{ if(conn&&conn!==c){try{conn.close()}catch(e){}} wire(c) });
   } else {
-    peer=new Peer({debug:0});
+    peer=newPeer();
     peer.on("open",()=>connectToHost());
   }
   peer.on("disconnected",()=>{try{if(peer&&!peer.destroyed)peer.reconnect()}catch(e){}});
   peer.on("error",e=>{
     const t=e&&e.type;
     if(t==="unavailable-id"){
-      // código ocupado: sala nova ganha outro código; sala em andamento tenta de novo
-      if(!L.connectedOnce&&L.phase==="lobby"){L.code=genCode();setURL(L.code);save();}
-      retryT=setTimeout(openPeer,2500);
-    } else if(t==="peer-unavailable"){ net="nohost";render();retryLater(); }
-    else { net="offline";render();retryT=setTimeout(openPeer,4000); }
+      // O código continua o mesmo: quase sempre é a própria sala antiga que o servidor ainda não soltou.
+      reopenTries++;
+      if(reopenTries>6&&!L.connectedOnce&&L.phase==="lobby"){reopenTries=0;L.code=genCode();setURL(L.code);save();}  // código realmente em uso por outra sala
+      net="reopening";render();retryT=setTimeout(openPeer,3000);
+    } else if(t==="peer-unavailable"){ failed("nohost"); }
+    else { net=navigator.onLine?"offline":"nointernet";render();retryT=setTimeout(openPeer,4000); }
   });
 }
 function connectToHost(){
-  if(!peer||peer.destroyed) return openPeer();
-  wire(peer.connect(PREFIX+L.code,{reliable:true}));
+  if(!peer||peer.destroyed||!peer.open) return openPeer();
+  clearTimeout(openT);
+  const c=peer.connect(PREFIX+L.code,{reliable:true});
+  wire(c);
+  // Se a conexão não abrir em 12 s, a rede provavelmente travou: tenta de novo.
+  openT=setTimeout(()=>{ if(conn===c&&!c.open){try{c.close()}catch(e){} conn=null; failed("stuck")} },12000);
+}
+// Convidado: tenta sozinho algumas vezes; depois mostra o botão "Tentar de novo".
+function failed(kind){
+  failures++;
+  if(failures>=4){net=kind==="nohost"?"givenohost":"giveup";render();return}
+  net=kind==="nohost"?"nohost":"lost";render();retryLater();
 }
 function retryLater(){
   clearTimeout(retryT);
-  retryT=setTimeout(()=>{ if(conn&&conn.open) return; if(L.role==="guest"&&peer&&peer.open) connectToHost(); else openPeer(); },3000);
+  retryT=setTimeout(()=>{ if(conn&&conn.open) return; if(L.role==="guest"&&peer&&peer.open&&!peer.destroyed) connectToHost(); else openPeer(); },2500);
 }
 function wire(c){
   conn=c;
-  c.on("open",()=>{ if(conn!==c)return; net="online";L.connectedOnce=true;lastSent="";push();render(); });
-  c.on("data",m=>{ if(conn===c) onData(m) });
-  c.on("close",()=>{ if(conn===c){conn=null;net=L.role==="host"?"waiting":"lost";render();if(L.role==="guest")retryLater()} });
-  c.on("error",()=>{ if(conn===c){conn=null;net="lost";render();if(L.role==="guest")retryLater()} });
+  c.on("open",()=>{ if(conn!==c)return; clearTimeout(openT);failures=0;net="online";L.connectedOnce=true;lastHeard=Date.now();lastSent="";push();beat();render(); });
+  c.on("data",m=>{ if(conn!==c)return; lastHeard=Date.now(); if(m&&m.t==="ping")return; onData(m) });
+  const lost=()=>{ if(conn!==c)return; conn=null;clearTimeout(openT);
+    if(L.role==="host"){net="waiting";render()} else failed("lost") };
+  c.on("close",lost); c.on("error",lost);
+}
+// Batimento: a cada 4 s cada celular avisa que está vivo. Sem notícia por 15 s, a conexão é refeita.
+function beat(){
+  clearInterval(beatT);
+  beatT=setInterval(()=>{
+    if(!conn||!conn.open) return;
+    try{conn.send({t:"ping"})}catch(e){}
+    if(Date.now()-lastHeard>15000){const c=conn;try{c.close()}catch(e){} if(conn===c){conn=null; if(L.role==="host"){net="waiting";render()} else failed("lost")}}
+  },4000);
 }
 function push(){
   if(!conn||!conn.open) return;
@@ -544,16 +575,24 @@ function onData(m){
   if(L.myResults.length>before) flashRow=L.myResults.length-1;
   if(!opp0&&L.oppName&&L.phase==="lobby") toast(`${oppNm()} entrou na sala`);
   step(L);
-  if(L.phase==="play"&&phase0!=="play") keepAwake();
+  keepAwake();
   save();render();push();
 }
+function retryNow(){failures=0;if(L.role==="guest"&&peer&&peer.open&&!peer.destroyed)connectToHost();else openPeer()}
 document.addEventListener("visibilitychange",()=>{
   if(document.visibilityState!=="visible"||!L||!L.role) return;
   if(peer&&peer.disconnected&&!peer.destroyed){try{peer.reconnect()}catch(e){}}
-  if(!conn||!conn.open){ if(L.role==="guest") retryLater(); else if(!peer||peer.destroyed) openPeer(); }
+  if(conn&&conn.open){lastSent="";push();}                 // volta do bloqueio: reenvia o estado
+  else if(L.role==="guest"){failures=0;retryLater()}
+  else if(!peer||peer.destroyed) openPeer();
   keepAwake();
 });
-async function keepAwake(){try{if((L.phase==="play"||L.phase==="solo")&&"wakeLock" in navigator&&!wake){wake=await navigator.wakeLock.request("screen");wake.addEventListener("release",()=>wake=null)}}catch(e){}}
+window.addEventListener("online",()=>{ if(L&&L.role&&(!conn||!conn.open)){failures=0;openPeer()} });
+// Tela acesa enquanto houver sala aberta ou partida: com a tela apagada, a sala cai.
+async function keepAwake(){
+  const need=L&&(["lobby","secret","play"].includes(L.phase)||L.phase==="solo");
+  try{if(need&&"wakeLock" in navigator&&!wake&&document.visibilityState==="visible"){wake=await navigator.wakeLock.request("screen");wake.addEventListener("release",()=>wake=null)}}catch(e){}
+}
 
 /* ---------------- peças da tela ---------------- */
 function tiles(word,res,{anim=false,mask=false,cursor=-1,pending=false,n=L.n}={}){
@@ -579,8 +618,10 @@ function keyStates(guesses,results){
 }
 function netBanner(){
   const msgs={lost:`Conexão com ${esc(oppNm())} caiu. Reconectando…`,waiting:`${esc(oppNm())} saiu da sala. Esperando voltar…`,
-    nohost:"Não achei a sala. Tentando de novo…",offline:"Sem conexão com o servidor. Tentando de novo…",connecting:"Conectando…",
+    nohost:"Procurando a sala…",offline:"Sem conexão com o servidor. Tentando de novo…",connecting:"Conectando…",
+    opening:"Abrindo a sala…",reopening:"Reabrindo a sala…",nointernet:"Este celular está sem internet.",
     nolib:"Não consegui carregar a parte de conexão. Verifique a internet e recarregue a página."};
+  if(net==="giveup"||net==="givenohost") return `<div class="net">${net==="givenohost"?"Não achei a sala. Confira se quem criou está com o jogo aberto e a tela acesa.":"Não consegui conectar nesta rede."} <button class="eye" data-act="retry" style="margin-left:6px">Tentar de novo</button><br><small>Se continuar, tentem os dois no mesmo Wi-Fi, ou os dois nos dados móveis.</small></div>`;
   return (net!=="online"&&msgs[net])?`<div class="net">${msgs[net]}</div>`:"";
 }
 function hintBtn(text){
@@ -646,8 +687,8 @@ function roomTags(){return `<div class="tagline"><span class="tag">${L.n} letras
 function vLobby(){
   if(L.role==="guest") return `<div class="lobby">
       <p class="code">${esc(L.code)}</p>
-      <div class="wait"><span class="spin"></span>${net==="nohost"?"Procurando a sala…":"Entrando na sala…"}</div>
-      <p class="hint">Quem criou a sala precisa estar com o jogo aberto.</p>
+      ${net==="giveup"||net==="givenohost"?netBanner():`<div class="wait"><span class="spin"></span>${net==="nohost"?"Procurando a sala…":net==="nointernet"?"Sem internet neste celular":"Entrando na sala…"}</div>`}
+      <p class="hint">Quem criou a sala precisa estar com o jogo aberto e a tela acesa.</p>
       <button class="ghost" data-act="leave">Cancelar</button></div>`;
   const canShare=!!navigator.share;
   return `<div class="lobby">
@@ -655,7 +696,8 @@ function vLobby(){
     <div class="qr" id="qr" role="img" aria-label="QR code da sala"></div>
     <div><span class="label">ou digitar o código</span><p class="code">${esc(L.code)}</p></div>
     <div class="share">${canShare?`<button class="ghost" data-act="share">Compartilhar</button>`:""}<button class="ghost" data-act="copy">Copiar link</button></div>
-    <div class="wait"><span class="spin"></span>${net==="waiting"?"Esperando o outro jogador…":net==="offline"?"Sem conexão. Tentando de novo…":"Abrindo a sala…"}</div>
+    <div class="wait"><span class="spin"></span>${net==="waiting"?"Esperando o outro jogador…":net==="offline"?"Sem conexão. Tentando de novo…":net==="reopening"?"Reabrindo a sala…":net==="nointernet"?"Sem internet neste celular":"Abrindo a sala…"}</div>
+    <p class="hint">Deixe esta tela aberta até o outro entrar.</p>
     ${roomTags()}
     <button class="ghost" data-act="leave">Cancelar</button>
   </div>`;
@@ -841,7 +883,7 @@ function act(x,v){
       readSettings(); if(!L.myName){toast("Escreva seu nome");return}
       setPrefs({name:L.myName});
       Object.assign(L,{role:"host",code:genCode(),phase:"lobby",game:1,oppName:"",connectedOnce:false});blankGame(L);
-      setURL(L.code);save();openPeer();break}
+      setURL(L.code);save();openPeer();keepAwake();break}
     case "joincode":{
       const c=norm((document.getElementById("joincode")||{}).value).slice(0,5);
       if(c.length!==5){toast("O código tem 5 letras");return}
@@ -850,8 +892,9 @@ function act(x,v){
       L.myName=nameFromInput(); if(!L.myName){toast("Escreva seu nome");return}
       setPrefs({name:L.myName});
       Object.assign(L,{role:"guest",phase:"lobby",game:1,oppName:"",connectedOnce:false});blankGame(L);
-      save();openPeer();break}
+      failures=0;save();openPeer();keepAwake();break}
     case "copy": copyLink(); break;
+    case "retry": retryNow(); render(); break;
     case "share": navigator.share({title:"Termo em Dupla",text:`Bora jogar Termo em Dupla? Sala ${L.code}`,url:inviteURL()}).catch(()=>{}); break;
     case "eye": showSecret=!showSecret; render(); break;
     case "draw":{
