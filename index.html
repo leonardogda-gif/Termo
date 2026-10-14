@@ -72,6 +72,11 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 #hub .foot{text-align:center}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 
+#termo .tvbtn,#caca .tvbtn,#cruz .tvbtn{display:flex;flex-direction:column;gap:2px;text-align:left;padding:14px 16px;border-radius:14px;background:var(--surface);border:2px solid var(--line)}
+#termo .tvbtn b,#caca .tvbtn b,#cruz .tvbtn b{font-family:var(--display);font-size:18px}
+#termo .tvbtn span,#caca .tvbtn span,#cruz .tvbtn span{font-size:13px;font-weight:700;color:var(--muted)}
+#termo .tvbtn:hover,#caca .tvbtn:hover,#cruz .tvbtn:hover{border-color:var(--ink)}
+
 /* ===== Termo ===== */
 #termo .me{--pc:var(--me)}
 #termo .opp{--pc:var(--opp)}
@@ -313,6 +318,204 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 #caca .learned em{font-style:normal;color:var(--muted);font-weight:800;white-space:nowrap}
 #caca .stack{display:flex;flex-direction:column;gap:10px}
 
+/* ===== Jogos no telão ===== */
+:is(#telao,#cacatv,#cruztv).app{max-width:none;padding-inline:16px}
+:is(#telao,#cacatv,#cruztv) .narrow{width:100%;max-width:560px;margin:0 auto}
+:is(#telao,#cacatv,#cruztv) .center{text-align:center}
+:is(#telao,#cacatv,#cruztv) .settings{display:flex;flex-direction:column;gap:16px}
+:is(#telao,#cacatv,#cruztv) .chips{display:flex;gap:8px;flex-wrap:wrap}
+:is(#telao,#cacatv,#cruztv) .chip{min-width:48px;height:48px;padding:0 10px;border-radius:12px;background:var(--surface);border:2px solid var(--line);font-family:var(--display);font-size:18px}
+:is(#telao,#cacatv,#cruztv) .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+:is(#telao,#cacatv,#cruztv) .seg2{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:4px}
+:is(#telao,#cacatv,#cruztv) .seg2 button{padding:11px 8px;border-radius:10px;font-weight:900;font-size:15px;color:var(--muted)}
+:is(#telao,#cacatv,#cruztv) .seg2 button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+:is(#telao,#cacatv,#cruztv) .switch{display:flex;align-items:center;gap:12px;background:var(--surface);border-radius:14px;padding:12px 14px;cursor:pointer}
+:is(#telao,#cacatv,#cruztv) .switch span{flex:1;min-width:0;font-weight:800;font-size:15px}
+:is(#telao,#cacatv,#cruztv) .switch small{display:block;font-weight:700;font-size:13px;color:var(--muted);margin-top:2px}
+:is(#telao,#cacatv,#cruztv) .switch input{appearance:none;-webkit-appearance:none;width:48px;height:28px;border-radius:14px;background:var(--line);position:relative;flex:none;cursor:pointer}
+:is(#telao,#cacatv,#cruztv) .switch input::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .15s}
+:is(#telao,#cacatv,#cruztv) .switch input:checked{background:var(--green)}
+:is(#telao,#cacatv,#cruztv) .switch input:checked::after{transform:translateX(20px)}
+:is(#telao,#cacatv,#cruztv) .modes{display:grid;gap:12px}
+:is(#telao,#cacatv,#cruztv) .mode{text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px}
+:is(#telao,#cacatv,#cruztv) .mode:hover,:is(#telao,#cacatv,#cruztv) .mode:focus-visible{border-color:var(--ink)}
+:is(#telao,#cacatv,#cruztv) .mode b{font-family:var(--display);font-size:20px}
+:is(#telao,#cacatv,#cruztv) .mode span{font-size:14px;line-height:1.4;color:var(--muted);font-weight:700}
+:is(#telao,#cacatv,#cruztv) .resume{background:var(--sel);color:#1b1e2b}
+:is(#telao,#cacatv,#cruztv) .text{width:100%;min-width:0;padding:14px 12px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:800;font-size:16px}
+:is(#telao,#cacatv,#cruztv) .teamlist{display:flex;flex-direction:column;gap:8px}
+:is(#telao,#cacatv,#cruztv) .teamrow{display:flex;align-items:center;gap:8px}
+:is(#telao,#cacatv,#cruztv) .teamrow .sw{width:14px;height:44px;border-radius:7px;background:var(--c);flex:none}
+:is(#telao,#cacatv,#cruztv) .mini-btn{padding:9px 12px;border-radius:10px;background:var(--surface);border:2px solid var(--line);font-weight:900;font-size:13px;color:var(--ink);white-space:nowrap}
+:is(#telao,#cacatv,#cruztv) .codeinline{font-family:var(--display);color:var(--ink);letter-spacing:.12em}
+
+/* tela de jogo */
+:is(#telao,#cacatv,#cruztv) .tv{flex:1;min-height:0;display:flex;flex-direction:column;width:100%;max-width:1500px;margin:0 auto}
+:is(#telao,#cacatv,#cruztv) .tvtop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-block:12px 8px}
+:is(#telao,#cacatv,#cruztv) .tvtop .label{flex:1;min-width:0}
+:is(#telao,#cacatv,#cruztv) .back{width:44px;height:44px;border-radius:12px;background:var(--surface);font-weight:900;font-size:20px;flex:none}
+:is(#telao,#cacatv,#cruztv) .back.armed{background:var(--wrong);color:#fff;font-size:12px;width:auto;padding:0 10px}
+:is(#telao,#cacatv,#cruztv) .tvbody{flex:1;min-height:0;display:flex;flex-direction:column;gap:16px}
+:is(#telao,#cacatv,#cruztv) .tv.wide .tvbody{flex-direction:row;align-items:stretch}
+:is(#telao,#cacatv,#cruztv) .boardcol{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:12px}
+:is(#telao,#cacatv,#cruztv) .bigboard,:is(#telao,#cacatv,#cruztv) .phoneboard{display:flex;flex-direction:column;align-items:center;gap:8px}
+:is(#telao,#cacatv,#cruztv) .phoneboard{flex:1;min-height:0;overflow:auto;gap:6px;justify-content:flex-start;padding-block:4px}
+:is(#telao,#cacatv,#cruztv) .trow{display:flex;align-items:center;gap:10px}
+:is(#telao,#cacatv,#cruztv) .trow .who{width:10px;height:calc(var(--ts) * .7);border-radius:5px;flex:none}
+:is(#telao,#cacatv,#cruztv) .row{display:grid;grid-template-columns:repeat(var(--n),var(--ts));gap:8px}
+:is(#telao,#cacatv,#cruztv) .phoneboard .row{gap:6px}
+:is(#telao,#cacatv,#cruztv) .tile{width:var(--ts);height:var(--ts);border-radius:10px;border:3px solid var(--line);display:grid;place-items:center;font-family:var(--display);font-size:calc(var(--ts) * .5);background:var(--surface);color:var(--ink)}
+:is(#telao,#cacatv,#cruztv) .tile.filled{border-color:var(--muted)}
+:is(#telao,#cacatv,#cruztv) .tile.correct{background:var(--green);border-color:var(--green);color:#fff}
+:is(#telao,#cacatv,#cruztv) .tile.present{background:var(--amber);border-color:var(--amber);color:#fff}
+:is(#telao,#cacatv,#cruztv) .tile.absent{background:var(--absent);border-color:var(--absent);color:#fff}
+:is(#telao,#cacatv,#cruztv) .tile.cursor{border-bottom-width:7px;border-color:var(--ink)}
+:is(#telao,#cacatv,#cruztv) .tile.pending{border-style:dashed;border-color:var(--muted)}
+:is(#telao,#cacatv,#cruztv) .flip{animation:tl-flip .55s ease both}
+@keyframes tl-flip{0%{transform:rotateX(0)}50%{transform:rotateX(90deg)}100%{transform:rotateX(0)}}
+:is(#telao,#cacatv,#cruztv) .shake{animation:tl-shake .4s}
+@keyframes tl-shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+:is(#telao,#cacatv,#cruztv) .kb{display:flex;flex-direction:column;gap:6px;padding-block:6px 12px;width:100%;max-width:640px;margin:0 auto}
+:is(#telao,#cacatv,#cruztv) .kb.off{opacity:.4;pointer-events:none}
+:is(#telao,#cacatv,#cruztv) .kr{display:flex;gap:5px;justify-content:center}
+:is(#telao,#cacatv,#cruztv) .key{flex:1;max-width:58px;height:52px;border-radius:8px;background:var(--key);font-weight:900;font-size:16px;display:grid;place-items:center;user-select:none;touch-action:manipulation}
+:is(#telao,#cacatv,#cruztv) .key.wide{max-width:84px;flex:1.6;font-size:12px}
+:is(#telao,#cacatv,#cruztv) .key.correct{background:var(--green);color:#fff}
+:is(#telao,#cacatv,#cruztv) .key.present{background:var(--amber);color:#fff}
+:is(#telao,#cacatv,#cruztv) .key.absent{background:var(--absent);color:#fff;opacity:.75}
+:is(#telao,#cacatv,#cruztv) .side{width:100%;display:flex;flex-direction:column;gap:14px}
+:is(#telao,#cacatv,#cruztv) .tv.wide .side{width:min(380px,32%);flex:none;justify-content:center}
+:is(#telao,#cacatv,#cruztv) .turn{background:var(--surface);border-radius:16px;padding:14px 16px;border-left:10px solid var(--c)}
+:is(#telao,#cacatv,#cruztv) .turn b{display:block;font-family:var(--display);font-size:clamp(24px,3vw,44px);line-height:1.1;margin-top:4px}
+:is(#telao,#cacatv,#cruztv) .hint-box{background:var(--surface);border:2px solid var(--amber);border-radius:12px;padding:10px 14px;font-weight:900;font-size:clamp(15px,1.6vw,22px)}
+:is(#telao,#cacatv,#cruztv) .hint-box.center{align-self:center}
+:is(#telao,#cacatv,#cruztv) .tools{display:flex;flex-wrap:wrap;gap:8px}
+:is(#telao,#cacatv,#cruztv) .scores{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+:is(#telao,#cacatv,#cruztv) .scores li{text-align:left;display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:12px;padding:10px 14px;border-left:8px solid var(--c);font-weight:800}
+:is(#telao,#cacatv,#cruztv) .scores li.me{box-shadow:inset 0 0 0 2px var(--c)}
+:is(#telao,#cacatv,#cruztv) .scores .pos{color:var(--muted);font-variant-numeric:tabular-nums;width:2.2em}
+:is(#telao,#cacatv,#cruztv) .scores .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+:is(#telao,#cacatv,#cruztv) .scores b{font-family:var(--display);font-size:20px;font-variant-numeric:tabular-nums}
+:is(#telao,#cacatv,#cruztv) .scores.big li{font-size:clamp(16px,1.8vw,24px);padding:12px 18px}
+:is(#telao,#cacatv,#cruztv) .scores.big b{font-size:clamp(20px,2.4vw,34px)}
+
+/* revelação e final */
+:is(#telao,#cacatv,#cruztv) .reveal .revealbox{flex:1;display:flex;flex-direction:column;gap:14px;align-items:stretch;justify-content:center;width:100%;max-width:760px;margin:0 auto;text-align:center;padding-block:10px 20px}
+:is(#telao,#cacatv,#cruztv) .reveal .cta,:is(#telao,#cacatv,#cruztv) .reveal .ghost{max-width:760px;margin-inline:auto}
+:is(#telao,#cacatv,#cruztv) .word{font-family:var(--display);font-size:clamp(40px,8vw,110px);line-height:1;margin:0;letter-spacing:.04em}
+:is(#telao,#cacatv,#cruztv) .word.sm{font-size:clamp(28px,7vw,48px)}
+:is(#telao,#cacatv,#cruztv) .theme{margin:0;color:var(--muted);font-weight:900;font-size:clamp(16px,2vw,24px)}
+:is(#telao,#cacatv,#cruztv) .verdict{margin:0;font-weight:800;font-size:clamp(16px,2vw,26px)}
+:is(#telao,#cacatv,#cruztv) .verdict b{color:var(--c)}
+:is(#telao,#cacatv,#cruztv) .winners{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+:is(#telao,#cacatv,#cruztv) .winners li{background:var(--surface);border:3px solid var(--c);border-radius:12px;padding:8px 14px;font-weight:800;font-size:clamp(14px,1.6vw,20px)}
+
+/* sala com celulares */
+:is(#telao,#cacatv,#cruztv) .lobby2{flex:1;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:center;padding-block:10px 20px}
+:is(#telao,#cacatv,#cruztv) .qrcol{display:flex;flex-direction:column;align-items:center;gap:10px}
+:is(#telao,#cacatv,#cruztv) .qr{background:#fff;padding:16px;border-radius:20px;line-height:0}
+:is(#telao,#cacatv,#cruztv) .qr img,:is(#telao,#cacatv,#cruztv) .qr canvas{width:min(300px,70vw)!important;height:min(300px,70vw)!important}
+:is(#telao,#cacatv,#cruztv) .code{font-family:var(--display);font-size:clamp(34px,5vw,60px);letter-spacing:.18em;margin:0}
+:is(#telao,#cacatv,#cruztv) .lobbyside{width:min(460px,100%);display:flex;flex-direction:column;gap:14px}
+:is(#telao,#cacatv,#cruztv) .ok-line{font-weight:900;color:var(--green)}
+:is(#telao,#cacatv,#cruztv) .joined{display:flex;flex-wrap:wrap;gap:8px}
+:is(#telao,#cacatv,#cruztv) .jt{padding:8px 14px;border-radius:999px;background:var(--surface);border:3px solid var(--c);font-weight:900;font-size:16px}
+:is(#telao,#cacatv,#cruztv) .jt.off{opacity:.5;border-style:dashed}
+:is(#telao,#cacatv,#cruztv) .cta:disabled{opacity:.35;cursor:default}
+:is(#telao,#cacatv,#cruztv) .clock{font-family:var(--display);font-size:20px;font-variant-numeric:tabular-nums}
+:is(#telao,#cacatv,#cruztv) .tcards{flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;align-content:start;padding-block:12px}
+:is(#telao,#cacatv,#cruztv) .tcard{background:var(--surface);border-radius:16px;padding:14px;border-top:8px solid var(--c);display:flex;flex-direction:column;gap:10px;align-items:center}
+:is(#telao,#cacatv,#cruztv) .tcard.won{box-shadow:0 0 0 3px var(--green)}
+:is(#telao,#cacatv,#cruztv) .tcard .th{display:flex;align-items:center;gap:8px;width:100%}
+:is(#telao,#cacatv,#cruztv) .tcard .th b{flex:1;min-width:0;font-size:clamp(16px,1.6vw,22px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+:is(#telao,#cacatv,#cruztv) .tcard .sc{font-family:var(--display);font-size:clamp(18px,2vw,28px)}
+:is(#telao,#cacatv,#cruztv) .off-dot{color:var(--wrong);font-size:28px;line-height:0}
+:is(#telao,#cacatv,#cruztv) .mini{display:flex;flex-direction:column;gap:4px}
+:is(#telao,#cacatv,#cruztv) .mrow{display:grid;grid-template-columns:repeat(var(--n),clamp(14px,1.6vw,24px));gap:4px}
+:is(#telao,#cacatv,#cruztv) .mrow i{aspect-ratio:1;border-radius:4px;background:var(--bg);border:1px solid var(--line)}
+:is(#telao,#cacatv,#cruztv) .mrow i.correct{background:var(--green);border-color:var(--green)}
+:is(#telao,#cacatv,#cruztv) .mrow i.present{background:var(--amber);border-color:var(--amber)}
+:is(#telao,#cacatv,#cruztv) .mrow i.absent{background:var(--absent);border-color:var(--absent)}
+:is(#telao,#cacatv,#cruztv) .badge{font-weight:900;font-size:13px;padding:4px 10px;border-radius:999px;background:var(--bg);color:var(--muted)}
+:is(#telao,#cacatv,#cruztv) .badge.ok{background:var(--green);color:#fff}
+:is(#telao,#cacatv,#cruztv) .badge.live{color:var(--ink)}
+:is(#telao,#cacatv,#cruztv) .net{font-size:13px;font-weight:800;color:var(--warn);text-align:center;padding:8px;border-radius:10px;background:var(--surface);margin-bottom:6px}
+
+/* celular da equipe */
+:is(#telao,#cacatv,#cruztv) .col{flex:1;min-height:0;display:flex;flex-direction:column;width:100%;max-width:560px;margin:0 auto}
+:is(#telao,#cacatv,#cruztv) .tname{flex:1;min-width:0;display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+:is(#telao,#cacatv,#cruztv) .tname i{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+:is(#telao,#cacatv,#cruztv) .tvtop .sc{font-family:var(--display);font-size:18px}
+:is(#telao,#cacatv,#cruztv) .prompt{text-align:center;font-weight:800;font-size:16px;padding-block:2px 8px;text-wrap:balance}
+:is(#telao,#cacatv,#cruztv) .prompt small{display:block;font-size:13px;color:var(--amber);font-weight:900;margin-top:3px}
+:is(#telao,#cacatv,#cruztv) .center-box{flex:1;display:flex;flex-direction:column;gap:12px;justify-content:center;text-align:center;padding-block:20px}
+:is(#telao,#cacatv,#cruztv) .wait{display:flex;align-items:center;justify-content:center;gap:10px;font-weight:800;color:var(--muted)}
+:is(#telao,#cacatv,#cruztv) .spin{width:16px;height:16px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--accent);animation:tl-spin .9s linear infinite;flex:none}
+@keyframes tl-spin{to{transform:rotate(360deg)}}
+@media (max-height:640px){:is(#telao,#cacatv,#cruztv) .key{height:44px}}
+/* Caça-palavras e Cruzadinha no telão */
+:is(#cacatv,#cruztv) .themes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+:is(#cacatv,#cruztv) .theme{padding:12px;border-radius:12px;background:var(--surface);border:2px solid var(--line);font-weight:800;font-size:14px;text-align:left;line-height:1.25;min-width:0}
+:is(#cacatv,#cruztv) .theme[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+:is(#cacatv,#cruztv) .seg3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:4px}
+:is(#cacatv,#cruztv) .seg3 button{padding:10px 4px;border-radius:10px;font-weight:900;font-size:14px;color:var(--muted);line-height:1.2}
+:is(#cacatv,#cruztv) .seg3 button small{display:block;font-weight:700;font-size:11px}
+:is(#cacatv,#cruztv) .seg3 button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+:is(#cacatv,#cruztv) .boardcol.center{align-items:center}
+:is(#cacatv,#cruztv) .tv.wide .side{width:min(420px,38%);overflow:auto;justify-content:flex-start;padding-bottom:12px}
+:is(#cacatv,#cruztv) .stage{display:flex;justify-content:center;padding-block:4px}
+
+/* janela por cima: escolher equipe, grade completa */
+:is(#cacatv,#cruztv) .overlay{position:fixed;inset:0;background:rgba(10,12,20,.6);display:grid;place-items:center;z-index:6;padding:16px}
+:is(#cacatv,#cruztv) .pickbox{background:var(--bg);border-radius:20px;padding:22px;width:min(560px,100%);max-height:90%;overflow:auto;display:flex;flex-direction:column;gap:14px;text-align:center}
+:is(#cacatv,#cruztv) .pickteams{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+:is(#cacatv,#cruztv) .pt{padding:18px 12px;border-radius:14px;background:var(--c);color:#fff;font-weight:900;font-size:clamp(16px,2vw,22px)}
+
+/* caça-palavras */
+#cacatv .wsboard{position:relative;user-select:none;-webkit-user-select:none;background:var(--surface);border-radius:14px;padding:6px}
+#cacatv .wsboard.touch{touch-action:none}
+#cacatv .letters{display:grid;position:relative;z-index:1}
+#cacatv .lt{display:grid;place-items:center;font-family:var(--display);color:var(--ink)}
+#cacatv .wsboard.touch .lt{cursor:pointer}
+#cacatv .lt.pend{background:var(--sel);border-radius:50%;color:#1b1e2b}
+#cacatv .wsboard svg{position:absolute;inset:6px;z-index:0;pointer-events:none;overflow:visible}
+#cacatv .wchips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding-block:8px}
+#cacatv .wd{font-weight:900;font-size:14px;letter-spacing:.05em;padding:6px 10px;border-radius:9px;background:var(--surface);border:2px solid var(--line)}
+#cacatv .wd.done{text-decoration:line-through;color:var(--muted);border-color:var(--c);background:transparent}
+:is(#cacatv,#cruztv) .lastbar{background:var(--surface);border-radius:14px;padding:10px 12px;border-left:6px solid var(--c);font-weight:800;font-size:14px;line-height:1.35;margin-top:6px}
+:is(#cacatv,#cruztv) .lastbar b{font-family:var(--display);letter-spacing:.04em;margin-right:4px}
+:is(#cacatv,#cruztv) .lastbar em{font-style:normal;color:var(--muted);white-space:nowrap}
+:is(#cacatv,#cruztv) .lastbar small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+:is(#cacatv,#cruztv) .lastbar.empty{border-left-color:var(--line);color:var(--muted);text-align:center}
+
+/* cruzadinha */
+#cruztv .xgrid{display:grid;gap:2px}
+#cruztv .xc{border-radius:4px}
+#cruztv .xc.on{position:relative;background:var(--surface);border:2px solid var(--line);display:grid;place-items:center;font-family:var(--display);color:var(--ink)}
+#cruztv .xc.on[data-cell]{cursor:pointer}
+#cruztv .xc.on.solved{background:color-mix(in srgb,var(--c) 22%,var(--surface));border-color:var(--c)}
+#cruztv .xc.on.sel{border-color:var(--sel);box-shadow:inset 0 0 0 2px var(--sel)}
+#cruztv .xc .num{position:absolute;top:1px;left:2px;font-family:var(--body);font-weight:900;font-size:clamp(7px,28%,12px);line-height:1;color:var(--muted)}
+#cruztv .cluebox{background:var(--surface);border-radius:14px;padding:12px 14px;border:2px solid var(--sel);font-weight:800;font-size:clamp(15px,1.6vw,22px);line-height:1.3}
+#cruztv .cluebox small{display:block;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+#cruztv .cluebox em{font-style:normal;color:var(--muted);font-weight:700}
+#cruztv .answer{display:flex;justify-content:center}
+#cruztv .answer .row{gap:6px}
+#cruztv .clues{display:flex;flex-direction:column;gap:6px}
+#cruztv .clues ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+#cruztv .clues li button{width:100%;text-align:left;padding:8px 10px;border-radius:10px;background:var(--surface);font-weight:700;font-size:14px;line-height:1.35;display:flex;gap:8px;border-left:5px solid transparent;color:var(--ink)}
+#cruztv .clues li button:disabled{cursor:default}
+#cruztv .clues li button b{font-family:var(--display);min-width:22px}
+#cruztv .clues li button em{font-style:normal;color:var(--muted)}
+#cruztv .clues li button.cur{box-shadow:inset 0 0 0 2px var(--sel)}
+#cruztv .clues li button.done{border-left-color:var(--c);color:var(--muted)}
+#cruztv .clues li button.done strong{color:var(--ink);font-family:var(--display);letter-spacing:.04em}
+#cruztv .cluebar{display:flex;align-items:center;gap:6px;background:var(--surface);border-radius:14px;padding:6px;margin-block:8px 6px}
+#cruztv .cluebar button{width:40px;height:48px;border-radius:10px;background:var(--key);font-weight:900;font-size:18px;flex:none}
+#cruztv .cluebar .clue{flex:1;min-width:0;font-weight:800;font-size:15px;line-height:1.3;text-align:center}
+#cruztv .cluebar .clue small{display:block;font-size:11px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+#cruztv .cluebar .clue em{font-style:normal;color:var(--muted);font-weight:700;font-size:13px}
+
 </style>
 </head>
 <body>
@@ -322,15 +525,15 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
     <div class="cards">
       <button class="card" data-go="termo">
         <span class="art" aria-hidden="true"><span class="t"><i style="background:var(--green)">L</i><i style="background:var(--green)">I</i><i style="background:var(--absent)">V</i><i style="background:var(--amber)">R</i></span></span>
-        <span><h2>Termo em Dupla</h2><p>Descubra a palavra secreta. Sozinho ou contra alguém, cada um no seu celular.</p><span class="go">Jogar →</span></span>
+        <span><h2>Termo</h2><p>Descubra a palavra secreta. Sozinho, contra alguém ou em equipes no telão.</p><span class="go">Jogar →</span></span>
       </button>
       <button class="card" data-go="caca">
         <span class="art" aria-hidden="true"><span class="w"><b></b><i>J</i><i>O</i><i>N</i><i>X</i><i>A</i><i>D</i><i>A</i><i>V</i><i>I</i><i>R</i><i>E</i><i>U</i><i>S</i><i>M</i><i>O</i></span></span>
-        <span><h2>Caça-palavras</h2><p>Ache as palavras bíblicas escondidas na grade.</p><span class="go">Jogar →</span></span>
+        <span><h2>Caça-palavras</h2><p>Ache as palavras bíblicas escondidas na grade. Também em equipes no telão.</p><span class="go">Jogar →</span></span>
       </button>
       <button class="card" data-go="cruz">
         <span class="art" aria-hidden="true"><span class="x"><i></i><i class="c">M</i><i></i><i></i><i></i><i class="c">A</i><i class="c">R</i><i class="c">C</i><i class="c">A</i><i></i><i></i><i class="c">N</i><i></i><i></i><i></i><i></i><i class="c">Á</i><i></i><i></i><i></i></span></span>
-        <span><h2>Cruzadinha</h2><p>Preencha a grade com as dicas e as referências bíblicas.</p><span class="go">Jogar →</span></span>
+        <span><h2>Cruzadinha</h2><p>Preencha a grade com as dicas e as referências bíblicas. Também em equipes no telão.</p><span class="go">Jogar →</span></span>
       </button>
     </div>
   </div>
@@ -338,6 +541,9 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 <main id="termo" class="app" hidden></main>
 <main id="caca" class="app" hidden></main>
 <main id="cruz" class="app" hidden></main>
+<main id="telao" class="app" hidden></main>
+<main id="cacatv" class="app" hidden></main>
+<main id="cruztv" class="app" hidden></main>
 <div class="toast" id="toast" hidden></div>
 
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -362,7 +568,7 @@ window.HUB={
   active:"hub",
   go(name){
     if(this.active!=="hub"&&GAMES[this.active]&&GAMES[this.active].unmount) GAMES[this.active].unmount();
-    for(const id of ["hub","termo","caca","cruz"]) document.getElementById(id).hidden=(id!==name);
+    for(const id of ["hub","termo","caca","cruz","telao","cacatv","cruztv"]) document.getElementById(id).hidden=(id!==name);
     this.active=name;
     if(name!=="hub") GAMES[name].mount();
     try{localStorage.setItem("jogos-ultimo",name)}catch(e){}
@@ -654,7 +860,7 @@ function vHome(){
   const p=prefs();
   return `<div class="scroll">
     <button class="tohub" data-act="hub">← Jogos</button>
-    <div class="hero"><h1 class="brand">Termo em Dupla<span>Sozinho ou contra alguém, cada um no seu celular.</span></h1></div>
+    <div class="hero"><h1 class="brand">Termo<span>Sozinho, contra alguém ou em equipes no telão.</span></h1></div>
     <div class="example">
       <span class="label">Exemplo · palavra secreta LÍRIO</span>
       ${tiles("LIVRO",["correct","correct","absent","present","correct"],{n:5})}
@@ -668,6 +874,7 @@ function vHome(){
     <div class="field"><label class="label" for="myname">Seu nome</label>
       <input id="myname" class="text" maxlength="16" placeholder="Como te chamam?" value="${esc(L.myName||p.name||"")}" autocomplete="off"></div>
     <div class="btns"><button class="cta" data-act="solo">Jogar sozinho</button><button class="cta alt" data-act="create">Criar sala</button></div>
+    <button class="tvbtn" data-act="telao"><b>Jogar no telão</b><span>Em equipes, com o tabuleiro grande na TV</span></button>
     <div class="or">ou entre numa sala</div>
     <div class="joinrow"><input id="joincode" class="text" maxlength="5" placeholder="CÓDIGO" autocomplete="off" aria-label="Código da sala"><button class="cta" data-act="joincode">Entrar</button></div>
     <p class="hint">Acentos não contam: LÍRIO vira LIRIO.</p>
@@ -676,7 +883,7 @@ function vHome(){
 function vJoin(){
   const p=prefs();
   return `<div class="scroll" style="justify-content:center">
-    <div class="hero"><h1 class="brand">Termo em Dupla<span>Você foi chamado para a sala <b style="font-family:var(--display);color:var(--ink);letter-spacing:.12em">${esc(L.code)}</b></span></h1></div>
+    <div class="hero"><h1 class="brand">Termo<span>Você foi chamado para a sala <b style="font-family:var(--display);color:var(--ink);letter-spacing:.12em">${esc(L.code)}</b></span></h1></div>
     <div class="field"><label class="label" for="myname">Seu nome</label>
       <input id="myname" class="text" maxlength="16" placeholder="Como te chamam?" value="${esc(L.myName||p.name||"")}" autocomplete="off"></div>
     <button class="cta" data-act="join">Entrar na sala</button>
@@ -869,6 +1076,7 @@ function act(x,v){
   if(x!=="back") backArmed=false;
   switch(x){
     case "hub": HUB.go("hub"); break;
+    case "telao": HUB.go("telao"); break;
     case "n": L.n=+v; readSettings(); render(); break;
     case "max": L.max=+v; readSettings(); render(); break;
     case "words": L.words=v; readSettings(); render(); break;
@@ -895,7 +1103,7 @@ function act(x,v){
       failures=0;save();openPeer();keepAwake();break}
     case "copy": copyLink(); break;
     case "retry": retryNow(); render(); break;
-    case "share": navigator.share({title:"Termo em Dupla",text:`Bora jogar Termo em Dupla? Sala ${L.code}`,url:inviteURL()}).catch(()=>{}); break;
+    case "share": navigator.share({title:"Termo",text:`Bora jogar Termo? Sala ${L.code}`,url:inviteURL()}).catch(()=>{}); break;
     case "eye": showSecret=!showSecret; render(); break;
     case "draw":{
       if(L.phase!=="secret"||L.mySecret) return;
@@ -1048,6 +1256,7 @@ function vHome(){
     <div class="field"><span class="label">Tema</span><div class="themes">${THEMES.map(t).join("")}${t(ALL)}</div></div>
     <div class="field"><span class="label">Nível</span><div class="seg">${s}</div></div>
     <button class="cta" data-act="new">Montar caça-palavras</button>
+    <button class="tvbtn" data-act="tv"><b>Jogar no telão</b><span>Em equipes, com a grade grande na TV</span></button>
     <p class="hint">Arraste o dedo da primeira até a última letra. Também dá para tocar na primeira letra e depois na última.${pick.level==="dificil"?" No difícil, as palavras podem estar de trás para frente.":""}</p>
   </div>`;
 }
@@ -1151,6 +1360,7 @@ function act(x,v){
   if(x!=="back")backArmed=false;
   switch(x){
     case "hub": pause(); HUB.go("hub"); break;
+    case "tv": pause(); HUB.go("cacatv"); break;
     case "theme": pick.theme=v; store(); render(); break;
     case "level": pick.level=v; store(); render(); break;
     case "new": newGame(); break;
@@ -1304,6 +1514,7 @@ function vHome(){
     </div></div>
     <div class="field"><span class="label">Tamanho</span><div class="seg">${s}</div></div>
     <button class="cta" data-act="new">Montar cruzadinha</button>
+    <button class="tvbtn" data-act="tv"><b>Jogar no telão</b><span>Em equipes, com a grade grande na TV</span></button>
     <p class="hint">Toque numa casa para escolher a palavra. Toque de novo na mesma casa para trocar entre horizontal e vertical.</p>
   </div>`;
 }
@@ -1430,6 +1641,7 @@ function act(x,v,e){
   if(x!=="back")backArmed=false;
   switch(x){
     case "hub": pause(); HUB.go("hub"); break;
+    case "tv": pause(); HUB.go("cruztv"); break;
     case "theme": pick.theme=v; save(); render(); break;
     case "size": pick.size=v; save(); render(); break;
     case "new": newGame(); break;
@@ -1471,15 +1683,1541 @@ function boot(){
   render();
 }
 
-return {mount(){ if(!booted){booted=true;boot()} if(view==="play"&&G&&!G.done){G.resumed=Date.now()} render(); }, unmount(){ clearInterval(tick); if(view==="play")pause(); }};
+return {gen:{buildPuzzle,solution,entriesFor},mount(){ if(!booted){booted=true;boot()} if(view==="play"&&G&&!G.done){G.resumed=Date.now()} render(); }, unmount(){ clearInterval(tick); if(view==="play")pause(); }};
 })();
+</script>
+<script>
+window.GAMES=window.GAMES||{};
+GAMES.telao=(function(){
+const ROOT=document.getElementById("telao");
+const SAVE="telao-v1", TEAMSAVE="telao-equipe-v1", PREFIX="termo-telao-lgda-";
+const ABC="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const KEYS=["QWERTYUIOP","ASDFGHJKL","EZXCVBNMB"];
+const COLORS=["#e2574c","#2f7fd8","#2f9e5a","#e0a12a","#8e5bd6","#d6559a","#1f9fa0","#c46a2d"];
+const ICE={iceServers:[
+  {urls:["stun:stun.l.google.com:19302","stun:stun1.l.google.com:19302","stun:stun2.l.google.com:19302"]},
+  {urls:"stun:stun.cloudflare.com:3478"},
+  {urls:["turn:eu-0.turn.peerjs.com:3478","turn:us-0.turn.peerjs.com:3478"],username:"peerjs",credential:"peerjsp"}
+]};
+
+let view="home", booted=false;
+let cfg={n:5,max:6,words:"biblia",dict:true,rounds:5,teams:["Equipe 1","Equipe 2"]};
+let S=null;   // partida só no telão
+let H=null;   // telão que hospeda a sala (com celulares)
+let T=null;   // celular de uma equipe
+let cur="", toastT=null, wake=null, showHint=false, backArmed=false, flash=-1, kbOn=null;
+let peer=null, conns=[], hconn=null, net="off", retryT=null, beatT=null, openT=null, failures=0, reopenTries=0, lastHeard=0, revealT=null;
+
+/* ---------------- utilidades ---------------- */
+function norm(s){return String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toUpperCase().replace(/[^A-Z]/g,"")}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function rnd(n){const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%n}
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2400)}
+function put(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function save(){put(SAVE,{cfg,S,H})}
+function genCode(){let s="";for(let i=0;i<5;i++)s+=ABC[rnd(ABC.length)];return s}
+function genId(){return "e"+Date.now().toString(36)+rnd(1e9).toString(36)}
+const tries=k=>`${k} tentativa${k>1?"s":""}`;
+const pts=k=>`${k} ponto${k>1?"s":""}`;
+
+/* ---------------- palavras ---------------- */
+const BIB={};
+for(const [theme,list] of Object.entries(BIBLIA)) for(const w of list.split(" ")){const k=norm(w);if(k&&!BIB[k])BIB[k]={shown:w,theme}}
+const _sets={};
+function inDict(w){
+  const n=w.length;if(n<4||n>8)return false;
+  if(!_sets[n]){const s=new Set(),str=DICT[n]||"";for(let i=0;i<str.length;i+=n)s.add(str.slice(i,i+n));_sets[n]=s}
+  return _sets[n].has(w);
+}
+function pool(words,n){return words==="biblia"?Object.keys(BIB).filter(w=>w.length===n):(COMUNS[n]||"").split(" ").filter(Boolean)}
+function draw(words,n,avoid){
+  const p=pool(words,n),fresh=p.filter(w=>!(avoid||[]).includes(w));
+  const from=fresh.length?fresh:p;return from[rnd(from.length)];
+}
+function shown(w){return BIB[w]?BIB[w].shown.toUpperCase():w}
+function themeOf(words,w){return words==="biblia"&&BIB[w]?BIB[w].theme:""}
+function score(g,s){
+  const r=Array(g.length).fill("absent"),left={};
+  for(let i=0;i<g.length;i++){ if(g[i]===s[i]) r[i]="correct"; else left[s[i]]=(left[s[i]]||0)+1; }
+  for(let i=0;i<g.length;i++){ if(r[i]!=="correct"&&left[g[i]]>0){r[i]="present";left[g[i]]--;} }
+  return r;
+}
+const isWin=r=>r.every(x=>x==="correct");
+// Pontos: quanto menos tentativas, mais pontos. No modo com celulares, quem acerta primeiro ganha +3.
+const roundPoints=(max,used,first)=>Math.max(1,max+1-used)+(first?3:0);
+
+/* ---------------- regras: só telão ---------------- */
+function localStart(){
+  S={teams:cfg.teams.map((name,i)=>({name:name.trim()||`Equipe ${i+1}`,color:COLORS[i%COLORS.length],score:0})),
+    n:cfg.n,max:cfg.max,words:cfg.words,dict:cfg.dict,rounds:cfg.rounds,round:0,avoid:[]};
+  localRound();
+}
+function localRound(){
+  S.round++;S.secret=draw(S.words,S.n,S.avoid);S.avoid=[S.secret,...S.avoid].slice(0,80);
+  S.theme=themeOf(S.words,S.secret);S.guesses=[];S.status="play";S.winner=-1;S.gain=0;
+  S.turn=(S.round-1)%S.teams.length;cur="";showHint=false;
+}
+function localGuess(w){
+  const res=score(w,S.secret);S.guesses.push({w,res,team:S.turn});
+  if(isWin(res)){S.winner=S.turn;S.gain=roundPoints(S.max,S.guesses.length,false);S.teams[S.turn].score+=S.gain;S.status="reveal";}
+  else if(S.guesses.length>=S.max){S.status="reveal";}
+  else S.turn=(S.turn+1)%S.teams.length;
+}
+
+/* ---------------- regras: telão com celulares (anfitrião) ---------------- */
+function hostCreate(){
+  H={code:genCode(),n:cfg.n,max:cfg.max,words:cfg.words,dict:cfg.dict,rounds:cfg.rounds,round:0,status:"lobby",teams:{},order:[],avoid:[],secret:"",theme:"",started:0};
+}
+function hostStartRound(){
+  H.round++;H.secret=draw(H.words,H.n,H.avoid);H.avoid=[H.secret,...H.avoid].slice(0,80);H.theme=themeOf(H.words,H.secret);
+  H.status="play";H.started=Date.now();
+  for(const id of H.order){const t=H.teams[id];t.guesses=[];t.solvedAt=0;t.rank=0;t.gain=0}
+}
+function hostJoin(tid,name){
+  if(!H.teams[tid]){H.teams[tid]={name,color:COLORS[H.order.length%COLORS.length],score:0,guesses:[],solvedAt:0,rank:0,gain:0};H.order.push(tid);return true}
+  H.teams[tid].name=name;return false;
+}
+function hostGuess(tid,round,w){
+  const t=H.teams[tid];
+  if(!t||H.status!=="play"||round!==H.round||t.solvedAt||t.guesses.length>=H.max) return false;
+  w=norm(w);if(w.length!==H.n) return false;
+  const res=score(w,H.secret);t.guesses.push({w,res});
+  if(isWin(res)){
+    const rank=H.order.filter(id=>H.teams[id].solvedAt).length+1;
+    t.solvedAt=Date.now();t.rank=rank;t.gain=roundPoints(H.max,t.guesses.length,rank===1);t.score+=t.gain;
+  }
+  return true;
+}
+const done=t=>!!t.solvedAt||t.guesses.length>=H.max;
+function hostAllDone(){return H.order.length>0&&H.order.every(id=>done(H.teams[id]))}
+function ranking(teams,ids){return ids.map(id=>({id,...teams[id]})).sort((a,b)=>b.score-a.score)}
+function teamView(tid){
+  const t=H.teams[tid];if(!t) return null;
+  const showWord=H.status==="reveal"||H.status==="end";
+  return {t:"state",code:H.code,round:H.round,rounds:H.rounds,status:H.status,n:H.n,max:H.max,dict:H.dict,
+    hint:H.status==="lobby"?"":H.theme,name:t.name,color:t.color,score:t.score,guesses:t.guesses,
+    solved:!!t.solvedAt,rank:t.rank,gain:t.gain,word:showWord?shown(H.secret):"",
+    board:ranking(H.teams,H.order).map(x=>({name:x.name,color:x.color,score:x.score,me:x.id===tid}))};
+}
+
+/* ---------------- rede ---------------- */
+function newPeer(id){const o={debug:0,config:ICE};return id?new Peer(id,o):new Peer(o)}
+function stopNet(){
+  clearTimeout(retryT);clearTimeout(openT);clearInterval(beatT);
+  for(const c of conns){try{c.close()}catch(e){}} conns=[];
+  try{hconn&&hconn.close()}catch(e){} hconn=null;
+  try{peer&&peer.destroy()}catch(e){} peer=null;net="off";
+}
+// --- anfitrião (a TV) ---
+function hostOpen(){
+  clearTimeout(retryT);
+  if(peer){try{peer.destroy()}catch(e){} peer=null}
+  if(typeof Peer==="undefined"){net="nolib";render();return}
+  if(!navigator.onLine){net="nointernet";render();return}
+  net="opening";render();
+  peer=newPeer(PREFIX+H.code);
+  peer.on("open",()=>{reopenTries=0;net="ready";render()});
+  peer.on("connection",hostWire);
+  peer.on("disconnected",()=>{try{if(peer&&!peer.destroyed)peer.reconnect()}catch(e){}});
+  peer.on("error",e=>{
+    const t=e&&e.type;
+    if(t==="unavailable-id"){
+      reopenTries++;
+      if(reopenTries>6&&H.status==="lobby"&&!H.order.length){reopenTries=0;H.code=genCode();save()}
+      net="reopening";render();retryT=setTimeout(hostOpen,3000);
+    } else if(t!=="peer-unavailable"){net=navigator.onLine?"offline":"nointernet";render();retryT=setTimeout(hostOpen,4000)}
+  });
+  hostBeat();
+}
+function hostWire(c){
+  c.lastHeard=Date.now();conns.push(c);
+  c.on("data",m=>{c.lastHeard=Date.now();if(!m||m.t==="ping")return;hostData(c,m)});
+  const gone=()=>{conns=conns.filter(x=>x!==c);if(view.startsWith("h-"))render()};
+  c.on("close",gone);c.on("error",gone);
+}
+function hostBeat(){
+  clearInterval(beatT);
+  beatT=setInterval(()=>{
+    for(const c of conns.slice()){
+      if(!c.open) continue;
+      try{c.send({t:"ping"})}catch(e){}
+      if(Date.now()-c.lastHeard>15000){try{c.close()}catch(e){} conns=conns.filter(x=>x!==c)}
+    }
+    if(view==="h-play") updateClock();
+  },4000);
+}
+function sendTeam(tid){const v=teamView(tid);if(!v)return;for(const c of conns)if(c.tid===tid&&c.open){try{c.send(v)}catch(e){}}}
+function sendAll(){for(const id of H.order)sendTeam(id)}
+function hostData(c,m){
+  if(!H) return;
+  if(m.t==="hello"){
+    const tid=String(m.tid||"").slice(0,40),name=String(m.name||"").trim().slice(0,20)||"Equipe";
+    if(!tid) return;
+    c.tid=tid;const isNew=hostJoin(tid,name);
+    if(isNew) toast(`${name} entrou`);
+    save();sendAll();render();return;
+  }
+  if(!c.tid) return;
+  if(m.t==="sync"){sendTeam(c.tid);return}
+  if(m.t==="guess"){
+    if(hostGuess(c.tid,m.round,m.w)){
+      const t=H.teams[c.tid];
+      if(t.rank===1) toast(`${t.name} acertou primeiro!`);
+      save();sendAll();render();
+      if(hostAllDone()){clearTimeout(revealT);revealT=setTimeout(hostReveal,1800)}
+    } else sendTeam(c.tid);
+  }
+}
+function hostReveal(){if(!H||H.status!=="play")return;clearTimeout(revealT);H.status="reveal";save();sendAll();render()}
+function hostNext(){
+  if(H.round>=H.rounds){H.status="end"}
+  else hostStartRound();
+  save();sendAll();render();
+}
+// --- celular de equipe ---
+function teamOpen(){
+  clearTimeout(retryT);clearTimeout(openT);
+  if(peer){try{peer.destroy()}catch(e){} peer=null}
+  if(typeof Peer==="undefined"){net="nolib";render();return}
+  if(!navigator.onLine){net="nointernet";render();return}
+  net="connecting";render();
+  peer=newPeer();
+  peer.on("open",teamConnect);
+  peer.on("disconnected",()=>{try{if(peer&&!peer.destroyed)peer.reconnect()}catch(e){}});
+  peer.on("error",e=>{
+    const t=e&&e.type;
+    if(t==="peer-unavailable") teamFailed("nohost");
+    else {net=navigator.onLine?"offline":"nointernet";render();retryT=setTimeout(teamOpen,4000)}
+  });
+}
+function teamConnect(){
+  if(!peer||peer.destroyed||!peer.open) return teamOpen();
+  clearTimeout(openT);
+  const c=peer.connect(PREFIX+T.code,{reliable:true});
+  c.on("open",()=>{
+    clearTimeout(openT);hconn=c;failures=0;net="online";lastHeard=Date.now();
+    c.send({t:"hello",tid:T.tid,name:T.name});teamBeat();render();
+  });
+  c.on("data",m=>{if(hconn!==c)return;lastHeard=Date.now();if(!m||m.t==="ping")return;if(m.t==="state")teamState(m)});
+  const lost=()=>{if(hconn===c||!hconn){hconn=null;clearTimeout(openT);teamFailed("lost")}};
+  c.on("close",lost);c.on("error",lost);
+  openT=setTimeout(()=>{if(!c.open){try{c.close()}catch(e){} teamFailed("stuck")}},12000);
+}
+function teamFailed(kind){
+  failures++;
+  if(failures>=4){net=kind==="nohost"?"givenohost":"giveup";render();return}
+  net=kind==="nohost"?"nohost":"lost";render();
+  clearTimeout(retryT);retryT=setTimeout(()=>{if(hconn&&hconn.open)return;if(peer&&peer.open&&!peer.destroyed)teamConnect();else teamOpen()},2500);
+}
+function teamBeat(){
+  clearInterval(beatT);
+  beatT=setInterval(()=>{
+    if(!hconn||!hconn.open) return;
+    try{hconn.send({t:"ping"})}catch(e){}
+    if(Date.now()-lastHeard>15000){const c=hconn;hconn=null;try{c.close()}catch(e){} teamFailed("lost")}
+  },4000);
+}
+function teamState(m){
+  const newRound=!T.st||T.st.round!==m.round||(T.st.status!==m.status&&m.status==="play");
+  const before=T.st?T.st.guesses.length:0;
+  T.st=m;T.name=m.name;
+  if(newRound){cur="";T.pending=false;showHint=false;flash=-1}
+  if(m.guesses.length>before){T.pending=false;flash=m.guesses.length-1}
+  if(T.pending&&m.guesses.length===before&&T.sentAt&&Date.now()-T.sentAt>400) T.pending=false;
+  view=m.status==="lobby"?"t-lobby":m.status==="play"?"t-play":m.status==="reveal"?"t-reveal":"t-end";
+  if(m.status==="play"&&m.solved&&before<m.guesses.length) toast(`Acertou! +${pts(m.gain)}`);
+  keepAwake();render();
+}
+document.addEventListener("visibilitychange",()=>{
+  if(HUB.active!=="telao"||document.visibilityState!=="visible") return;
+  if(peer&&peer.disconnected&&!peer.destroyed){try{peer.reconnect()}catch(e){}}
+  if(T&&view.startsWith("t-")){ if(hconn&&hconn.open){try{hconn.send({t:"sync"})}catch(e){}} else {failures=0;teamFailed("lost")} }
+  if(H&&view.startsWith("h-")&&(!peer||peer.destroyed)) hostOpen();
+  keepAwake();
+});
+async function keepAwake(){
+  const need=["l-play","l-reveal","h-lobby","h-play","h-reveal","t-lobby","t-play","t-reveal"].includes(view);
+  try{if(need&&"wakeLock" in navigator&&!wake&&document.visibilityState==="visible"){wake=await navigator.wakeLock.request("screen");wake.addEventListener("release",()=>wake=null)}}catch(e){}
+}
+
+/* ---------------- peças de tela ---------------- */
+function tileRow(word,res,n,{anim=false,cursor=-1,pending=false,blank=false,who=""}={}){
+  let h="";
+  for(let i=0;i<n;i++){
+    const ch=blank?"":(word[i]||"");
+    const st=res?res[i]:(pending?"pending":(ch?"filled":""));
+    h+=`<div class="tile ${st} ${anim?"flip":""} ${i===cursor?"cursor":""}"${anim?` style="animation-delay:${i*0.12}s"`:""}>${esc(ch)}</div>`;
+  }
+  return `<div class="trow">${who?`<span class="who" style="background:${who}"></span>`:""}<div class="row" style="--n:${n}">${h}</div></div>`;
+}
+function kbStates(guesses){
+  const m={},rank={absent:1,present:2,correct:3};
+  for(const g of guesses) g.res.forEach((x,i)=>{const k=g.w[i];if(!m[k]||rank[x]>rank[m[k]])m[k]=x});
+  return m;
+}
+function keyboard(states,on){
+  return `<div class="kb ${on?"":"off"}">`+KEYS.map((row,ri)=>`<div class="kr">`+[...row].map((k,ki)=>{
+    if(ri===2&&ki===0) return `<button class="key wide" data-k="ENTER">ENVIAR</button>`;
+    if(ri===2&&ki===row.length-1) return `<button class="key wide" data-k="BACK" aria-label="Apagar">⌫</button>`;
+    return `<button class="key ${states[k]||""}" data-k="${k}">${k}</button>`;
+  }).join("")+`</div>`).join("")+`</div>`;
+}
+function tileSize(n,max,{wide,withKb}){
+  const W=Math.min(window.innerWidth-32,1500)*(wide?0.6:1);
+  const Hh=window.innerHeight-(withKb?(wide?330:300):150)-(wide?60:110);
+  return Math.max(26,Math.min(110,Math.floor(Math.min((W-(n-1)*8)/n,(Hh-(max-1)*8)/max))));
+}
+function netLine(){
+  const m={opening:"Abrindo a sala…",reopening:"Reabrindo a sala…",offline:"Sem conexão com o servidor. Tentando de novo…",nointernet:"Sem internet neste aparelho.",
+    nolib:"Não consegui carregar a parte de conexão. Verifique a internet e recarregue a página.",connecting:"Conectando…",lost:"A conexão caiu. Reconectando…",nohost:"Procurando a sala…"};
+  if(net==="giveup"||net==="givenohost") return `<div class="net">${net==="givenohost"?"Não achei a sala. Confira se o telão está com a sala aberta.":"Não consegui conectar nesta rede."} <button class="mini-btn" data-act="retry">Tentar de novo</button></div>`;
+  return m[net]?`<div class="net">${m[net]}</div>`:"";
+}
+function backBtn(){return `<button class="back ${backArmed?"armed":""}" data-act="back" aria-label="Sair">${backArmed?"Sair?":"←"}</button>`}
+function scoreList(list,{big=false}={}){
+  return `<ol class="scores ${big?"big":""}">${list.map((t,i)=>`<li style="--c:${t.color}" class="${t.me?"me":""}"><span class="pos">${i+1}º</span><span class="nm">${esc(t.name)}${t.me?" (vocês)":""}</span><b>${t.score}</b></li>`).join("")}</ol>`;
+}
+function fsBtn(){return document.fullscreenEnabled?`<button class="mini-btn" data-act="fs">${document.fullscreenElement?"Sair da tela cheia":"Tela cheia"}</button>`:""}
+
+/* ---------------- telas ---------------- */
+function render(){
+  const v={home:vHome,teams:vTeams,"l-play":vLocalPlay,"l-reveal":vLocalReveal,"l-end":vLocalEnd,
+    "h-lobby":vHostLobby,"h-play":vHostPlay,"h-reveal":vHostReveal,"h-end":vHostEnd,
+    "t-join":vTeamJoin,"t-wait":vTeamWait,"t-lobby":vTeamLobby,"t-play":vTeamPlay,"t-reveal":vTeamReveal,"t-end":vTeamEnd}[view]||vHome;
+  ROOT.innerHTML=v();
+  ROOT.dataset.view=view;
+  if(view==="h-lobby") drawQR();
+  flash=-1;
+}
+function chips(arr,val,act){return arr.map(v=>`<button class="chip" data-act="${act}" data-v="${v}" aria-pressed="${v===val}">${v}</button>`).join("")}
+function vHome(){
+  const resumeL=S&&S.status!=="end", resumeH=H&&H.status!=="end";
+  return `<div class="scroll narrow">
+    <button class="tohub" data-act="hub">← Termo</button>
+    <div class="hero"><h1 class="brand">Termo no Telão<span>Para jogar em equipes, com o tabuleiro grande na TV.</span></h1></div>
+    ${resumeL?`<button class="cta resume" data-act="resumeL">Continuar partida no telão · rodada ${S.round} de ${S.rounds}</button>`:""}
+    ${resumeH?`<button class="cta resume" data-act="resumeH">Voltar para a sala ${esc(H.code)}</button>`:""}
+    <div class="settings">
+      <div class="field"><span class="label">Letras da palavra</span><div class="chips">${chips([4,5,6,7,8],cfg.n,"n")}</div></div>
+      <div class="field"><span class="label">Tentativas</span><div class="chips">${chips([4,5,6,7,8],cfg.max,"max")}</div></div>
+      <div class="field"><span class="label">Rodadas</span><div class="chips">${chips([3,5,7,10],cfg.rounds,"rounds")}</div></div>
+      <div class="field"><span class="label">Tipo de palavra</span><div class="seg2">
+        <button data-act="words" data-v="biblia" aria-pressed="${cfg.words==="biblia"}">Bíblicas</button><button data-act="words" data-v="comuns" aria-pressed="${cfg.words==="comuns"}">Comuns</button></div></div>
+      <label class="switch"><span>Só palavras do dicionário<small>Desligue para aceitar qualquer palavra</small></span><input type="checkbox" id="tl-dict" ${cfg.dict?"checked":""}></label>
+    </div>
+    <div class="modes">
+      <button class="mode" data-act="local">
+        <b>Só o telão</b><span>As equipes se revezam no mesmo tabuleiro. Quem manda digita no notebook ou na tela. Não precisa de internet.</span>
+      </button>
+      <button class="mode" data-act="host">
+        <b>Telão + celulares</b><span>Cada equipe joga no seu celular, todas ao mesmo tempo. A TV mostra o andamento de cada uma, só com as cores.</span>
+      </button>
+    </div>
+  </div>`;
+}
+function vTeams(){
+  return `<div class="scroll narrow">
+    <button class="tohub" data-act="home">← Voltar</button>
+    <div class="hero"><h1 class="brand">Equipes<span>De 2 a 6 equipes. Elas se revezam a cada palpite.</span></h1></div>
+    <div class="teamlist">${cfg.teams.map((t,i)=>`<div class="teamrow" style="--c:${COLORS[i%COLORS.length]}"><span class="sw"></span>
+      <input class="text" id="tl-team-${i}" maxlength="20" value="${esc(t)}" aria-label="Nome da equipe ${i+1}">
+      ${cfg.teams.length>2?`<button class="mini-btn" data-act="delteam" data-v="${i}" aria-label="Remover">✕</button>`:""}</div>`).join("")}</div>
+    ${cfg.teams.length<6?`<button class="ghost" data-act="addteam">+ Adicionar equipe</button>`:""}
+    <button class="cta" data-act="startlocal">Começar</button>
+  </div>`;
+}
+function wide(){return window.innerWidth>=900}
+function vLocalPlay(){
+  const W=wide(), useKb=kbOn===null?matchMedia("(pointer:coarse)").matches||!W:kbOn;
+  const ts=tileSize(S.n,S.max,{wide:W,withKb:useKb});
+  const team=S.teams[S.turn];
+  let rows="";
+  S.guesses.forEach((g,i)=>rows+=tileRow(g.w,g.res,S.n,{anim:i===flash,who:S.teams[g.team].color}));
+  if(S.guesses.length<S.max) rows+=`<div data-active>${tileRow(cur,null,S.n,{cursor:cur.length<S.n?cur.length:-1,who:team.color})}</div>`;
+  for(let i=S.guesses.length+1;i<S.max;i++) rows+=tileRow("",null,S.n,{who:"transparent"});
+  const side=`<div class="side">
+      <div class="turn" style="--c:${team.color}"><span class="label">Vez de</span><b>${esc(team.name)}</b></div>
+      ${S.theme?(showHint?`<div class="hint-box">Dica: ${esc(S.theme)}</div>`:`<button class="ghost" data-act="hint">Mostrar dica</button>`):""}
+      ${scoreList(S.teams.map(t=>({...t})).sort((a,b)=>b.score-a.score))}
+      <div class="tools"><button class="mini-btn" data-act="pass">Passar a vez</button><button class="mini-btn" data-act="kb">${useKb?"Esconder teclado":"Teclado na tela"}</button>${fsBtn()}<button class="mini-btn" data-act="endlocal">Encerrar</button></div>
+    </div>`;
+  return `<div class="tv ${W?"wide":""}">
+    <div class="tvtop">${backBtn()}<span class="label">Rodada ${S.round} de ${S.rounds} · ${S.n} letras · ${S.guesses.length}/${S.max}</span></div>
+    <div class="tvbody">
+      <div class="boardcol"><div class="bigboard" style="--ts:${ts}px">${rows}</div>${useKb?keyboard(kbStates(S.guesses),true):`<p class="hint center">Digite no teclado e aperte Enter.</p>`}</div>
+      ${side}
+    </div>
+  </div>`;
+}
+function vLocalReveal(){
+  const won=S.winner>=0, t=won?S.teams[S.winner]:null, last=S.round>=S.rounds;
+  return `<div class="tv wide reveal">
+    <div class="tvtop">${backBtn()}<span class="label">Rodada ${S.round} de ${S.rounds}</span></div>
+    <div class="revealbox">
+      <span class="label">A palavra era</span>
+      <p class="word">${esc(shown(S.secret))}</p>
+      ${S.theme?`<p class="theme">${esc(S.theme)}</p>`:""}
+      <p class="verdict" ${won?`style="--c:${t.color}"`:""}>${won?`<b>${esc(t.name)}</b> acertou em ${tries(S.guesses.length)} e ganhou ${pts(S.gain)}!`:"Ninguém acertou desta vez."}</p>
+      ${scoreList(S.teams.map(t=>({...t})).sort((a,b)=>b.score-a.score),{big:true})}
+      <button class="cta" data-act="${last?"finishlocal":"nextlocal"}">${last?"Ver resultado final":"Próxima rodada"}</button>
+    </div>
+  </div>`;
+}
+function podium(list){
+  const top=list[0], tie=list.length>1&&list[1].score===top.score;
+  return `<div class="revealbox">
+    <span class="label">Resultado final</span>
+    <p class="word">${tie?"Empate!":esc(top.name)}</p>
+    <p class="verdict">${tie?"Mais de uma equipe terminou com a mesma pontuação.":`venceu com ${pts(top.score)}!`}</p>
+    ${scoreList(list,{big:true})}`;
+}
+function vLocalEnd(){
+  return `<div class="tv wide reveal"><div class="tvtop">${backBtn()}</div>
+    ${podium(S.teams.map(t=>({...t})).sort((a,b)=>b.score-a.score))}
+    <button class="cta" data-act="againlocal">Jogar de novo com as mesmas equipes</button>
+    <button class="ghost" data-act="home">Voltar ao início</button></div></div>`;
+}
+/* --- anfitrião --- */
+function joinURL(){return location.href.split(/[?#]/)[0]+"?tv="+H.code}
+function drawQR(){
+  const el=ROOT.querySelector("#tl-qr");if(!el||typeof QRCode==="undefined")return;
+  el.innerHTML="";new QRCode(el,{text:joinURL(),width:520,height:520,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
+}
+function teamChips(){
+  if(!H.order.length) return `<p class="hint center">Nenhuma equipe ainda.</p>`;
+  return `<div class="joined">${H.order.map(id=>{const t=H.teams[id],on=conns.some(c=>c.tid===id&&c.open);return `<span class="jt ${on?"":"off"}" style="--c:${t.color}">${esc(t.name)}</span>`}).join("")}</div>`;
+}
+function vHostLobby(){
+  return `<div class="tv wide">
+    <div class="tvtop">${backBtn()}<span class="label">Telão + celulares · ${H.n} letras · ${H.max} tentativas · ${H.rounds} rodadas</span>${fsBtn()}</div>
+    <div class="lobby2">
+      <div class="qrcol"><div class="qr" id="tl-qr" role="img" aria-label="QR code da sala"></div>
+        <p class="code">${esc(H.code)}</p><p class="hint center">Cada equipe lê o QR com a câmera do celular.</p></div>
+      <div class="lobbyside">
+        ${netLine()||(net==="ready"?`<div class="ok-line">Sala aberta. Esperando as equipes…</div>`:"")}
+        <span class="label">Equipes na sala</span>
+        ${teamChips()}
+        <button class="cta" data-act="hoststart" ${H.order.length?"":"disabled"}>Começar a primeira rodada</button>
+        <p class="hint">Deixe esta tela aberta. Quem entrar depois do começo também joga.</p>
+      </div>
+    </div>
+  </div>`;
+}
+function clockText(){const s=Math.max(0,Math.floor((Date.now()-H.started)/1000));return `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`}
+function updateClock(){const el=ROOT.querySelector("#tl-clock");if(el)el.textContent=clockText()}
+function hostCard(id){
+  const t=H.teams[id],on=conns.some(c=>c.tid===id&&c.open);
+  let rows="";
+  for(let i=0;i<H.max;i++){const g=t.guesses[i];rows+=`<div class="mrow" style="--n:${H.n}">${Array.from({length:H.n},(_,j)=>`<i class="${g?g.res[j]:""}"></i>`).join("")}</div>`}
+  const st=t.solvedAt?`<span class="badge ok">${t.rank}º · acertou em ${t.guesses.length}</span>`:t.guesses.length>=H.max?`<span class="badge">sem tentativas</span>`:`<span class="badge live">${t.guesses.length}/${H.max}</span>`;
+  return `<div class="tcard ${t.solvedAt?"won":""}" style="--c:${t.color}">
+    <div class="th"><b>${esc(t.name)}</b>${on?"":`<span class="off-dot" title="desconectado">•</span>`}<span class="sc">${t.score}</span></div>
+    <div class="mini">${rows}</div>${st}</div>`;
+}
+function vHostPlay(){
+  return `<div class="tv wide">
+    <div class="tvtop">${backBtn()}<span class="label">Rodada ${H.round} de ${H.rounds} · ${H.n} letras</span>
+      <span class="clock" id="tl-clock">${clockText()}</span>${fsBtn()}<button class="mini-btn" data-act="hostreveal">Encerrar rodada</button></div>
+    ${netLine()}
+    ${H.theme?`<div class="hint-box center">Dica: ${esc(H.theme)}</div>`:""}
+    <div class="tcards">${H.order.map(hostCard).join("")}</div>
+    <p class="hint center">Para entrar agora: ${esc(joinURL().replace(/^https?:\/\//,""))}</p>
+  </div>`;
+}
+function vHostReveal(){
+  const winners=H.order.map(id=>({id,...H.teams[id]})).filter(t=>t.solvedAt).sort((a,b)=>a.rank-b.rank);
+  const last=H.round>=H.rounds;
+  return `<div class="tv wide reveal"><div class="tvtop">${backBtn()}<span class="label">Rodada ${H.round} de ${H.rounds}</span>${fsBtn()}</div>
+    <div class="revealbox">
+      <span class="label">A palavra era</span><p class="word">${esc(shown(H.secret))}</p>
+      ${H.theme?`<p class="theme">${esc(H.theme)}</p>`:""}
+      ${winners.length?`<ol class="winners">${winners.map(t=>`<li style="--c:${t.color}"><b>${esc(t.name)}</b> · ${tries(t.guesses.length)} · +${pts(t.gain)}</li>`).join("")}</ol>`:`<p class="verdict">Nenhuma equipe acertou desta vez.</p>`}
+      ${scoreList(ranking(H.teams,H.order),{big:true})}
+      <button class="cta" data-act="hostnext">${last?"Ver resultado final":"Próxima rodada"}</button>
+    </div></div>`;
+}
+function vHostEnd(){
+  return `<div class="tv wide reveal"><div class="tvtop">${backBtn()}${fsBtn()}</div>
+    ${podium(ranking(H.teams,H.order))}
+    <button class="cta" data-act="hostagain">Jogar de novo com as mesmas equipes</button>
+    <button class="ghost" data-act="hostclose">Fechar a sala</button></div></div>`;
+}
+/* --- celular da equipe --- */
+function vTeamJoin(){
+  const p=get(TEAMSAVE)||{};
+  return `<div class="scroll narrow" style="justify-content:center">
+    <div class="hero"><h1 class="brand">Termo no Telão<span>Sala <b class="codeinline">${esc(T.code)}</b></span></h1></div>
+    <div class="field"><label class="label" for="tl-name">Nome da equipe</label>
+      <input class="text" id="tl-name" maxlength="20" placeholder="Ex.: Leões de Judá" value="${esc(T.name||p.name||"")}" autocomplete="off"></div>
+    <button class="cta" data-act="teamjoin">Entrar na sala</button>
+    <button class="ghost" data-act="teamcancel">Voltar aos jogos</button>
+  </div>`;
+}
+function vTeamWait(){
+  return `<div class="scroll narrow" style="justify-content:center;text-align:center">
+    <p class="code">${esc(T.code)}</p>
+    ${netLine()||`<div class="wait"><span class="spin"></span>Entrando na sala…</div>`}
+    <p class="hint">O telão precisa estar com a sala aberta.</p>
+    <button class="ghost" data-act="teamcancel">Cancelar</button></div>`;
+}
+function teamHead(){
+  const m=T.st;
+  return `<div class="tvtop">${backBtn()}<span class="tname" style="--c:${m.color}"><i></i>${esc(m.name)}</span><span class="sc">${m.score} ${m.score===1?"pt":"pts"}</span></div>${netLine()}`;
+}
+function vTeamLobby(){
+  return `<div class="col">${teamHead()}<div class="center-box">
+    <span class="label">Vocês estão na sala!</span><p class="word sm">Olhem para o telão</p>
+    <p class="hint">O jogo começa quando o telão iniciar a rodada.</p></div></div>`;
+}
+function vTeamPlay(){
+  const m=T.st, k=m.guesses.length, outOf=k>=m.max;
+  const active=!m.solved&&!outOf;
+  const ts=tileSize(m.n,m.max,{wide:false,withKb:true});
+  let rows="";
+  m.guesses.forEach((g,i)=>rows+=tileRow(g.w,g.res,m.n,{anim:i===flash}));
+  if(active) rows+=`<div data-active>${tileRow(cur,null,m.n,{cursor:!T.pending&&cur.length<m.n?cur.length:-1,pending:T.pending})}</div>`;
+  for(let i=k+(active?1:0);i<m.max;i++) rows+=tileRow("",null,m.n);
+  const msg=m.solved?`Acertaram! +${pts(m.gain)}. Olhem o telão.`:outOf?"Acabaram as tentativas. Esperem a rodada terminar.":T.pending?"Conferindo…":`Rodada ${m.round} de ${m.rounds} · tentativa ${k+1} de ${m.max}`;
+  return `<div class="col">${teamHead()}
+    <div class="prompt">${msg}${m.hint?`<small>Dica: ${esc(m.hint)}</small>`:""}</div>
+    <div class="phoneboard" style="--ts:${ts}px">${rows}</div>
+    ${keyboard(kbStates(m.guesses),active&&!T.pending&&!!hconn)}
+  </div>`;
+}
+function vTeamReveal(){
+  const m=T.st;
+  return `<div class="col">${teamHead()}<div class="center-box">
+    <span class="label">A palavra era</span><p class="word">${esc(m.word)}</p>
+    ${m.hint?`<p class="theme">${esc(m.hint)}</p>`:""}
+    <p class="verdict">${m.solved?`Vocês acertaram e ganharam ${pts(m.gain)}!`:"Não foi desta vez."}</p>
+    ${scoreList(m.board)}
+    <p class="hint">A próxima rodada começa pelo telão.</p></div></div>`;
+}
+function vTeamEnd(){
+  const m=T.st,pos=m.board.findIndex(b=>b.me)+1;
+  return `<div class="col">${teamHead()}<div class="center-box">
+    <span class="label">Fim de jogo</span><p class="word">${pos}º lugar</p>
+    <p class="verdict">Vocês fizeram ${pts(m.score)}.</p>${scoreList(m.board)}
+    <button class="ghost" data-act="teamcancel">Voltar aos jogos</button></div></div>`;
+}
+
+/* ---------------- ações ---------------- */
+function shake(){const r=ROOT.querySelector("[data-active]");if(r){r.classList.remove("shake");void r.offsetWidth;r.classList.add("shake")}}
+function readTeams(){cfg.teams=cfg.teams.map((t,i)=>{const el=ROOT.querySelector("#tl-team-"+i);return el?el.value:t})}
+function typing(){
+  if(view==="l-play") return S.status==="play";
+  if(view==="t-play") return T&&T.st&&!T.st.solved&&T.st.guesses.length<T.st.max&&!T.pending&&!!hconn;
+  return false;
+}
+function press(k){
+  if(!typing()) return;
+  const n=view==="l-play"?S.n:T.st.n, dict=view==="l-play"?S.dict:T.st.dict;
+  if(k==="BACK"){cur=cur.slice(0,-1);render();return}
+  if(k==="ENTER"){
+    if(cur.length<n){shake();toast(`A palavra precisa ter ${n} letras`);return}
+    if(dict&&!inDict(cur)){shake();toast("Essa palavra não está na lista");return}
+    if(view==="l-play"){
+      localGuess(cur);cur="";flash=S.guesses.length-1;save();
+      if(S.status==="reveal"){render();setTimeout(()=>{view="l-reveal";render()},1400)} else render();
+    } else {
+      T.pending=true;T.sentAt=Date.now();
+      try{hconn.send({t:"guess",round:T.st.round,w:cur})}catch(e){T.pending=false}
+      setTimeout(()=>{if(T&&T.pending&&Date.now()-T.sentAt>=3000){T.pending=false;try{hconn&&hconn.send({t:"sync"})}catch(e){} render()}},3100);
+      cur="";render();
+    }
+    return;
+  }
+  if(/^[A-Z]$/.test(k)&&cur.length<n){cur+=k;render()}
+}
+function act(x,v){
+  if(x!=="back") backArmed=false;
+  const dictEl=ROOT.querySelector("#tl-dict"); if(dictEl) cfg.dict=dictEl.checked;
+  switch(x){
+    case "hub": HUB.go("termo"); break;
+    case "home": if(view==="teams")readTeams(); view="home"; save(); render(); break;
+    case "n": cfg.n=+v; save(); render(); break;
+    case "max": cfg.max=+v; save(); render(); break;
+    case "rounds": cfg.rounds=+v; save(); render(); break;
+    case "words": cfg.words=v; save(); render(); break;
+    case "local": view="teams"; render(); break;
+    case "addteam": readTeams(); if(cfg.teams.length<6) cfg.teams.push(`Equipe ${cfg.teams.length+1}`); render(); break;
+    case "delteam": readTeams(); cfg.teams.splice(+v,1); render(); break;
+    case "startlocal": readTeams(); localStart(); view="l-play"; save(); keepAwake(); render(); break;
+    case "resumeL": view=S.status==="reveal"?"l-reveal":"l-play"; keepAwake(); render(); break;
+    case "hint": showHint=true; render(); break;
+    case "pass": if(S&&S.status==="play"){S.turn=(S.turn+1)%S.teams.length;cur="";save();render()} break;
+    case "kb": kbOn=!(kbOn===null?(matchMedia("(pointer:coarse)").matches||!wide()):kbOn); render(); break;
+    case "nextlocal": localRound(); view="l-play"; save(); render(); break;
+    case "finishlocal": case "endlocal": S.status="end"; view="l-end"; save(); render(); break;
+    case "againlocal": S.teams.forEach(t=>t.score=0); S.round=0; localRound(); view="l-play"; save(); render(); break;
+    case "fs": if(document.fullscreenElement) document.exitFullscreen().catch(()=>{}); else document.documentElement.requestFullscreen().catch(()=>{}); setTimeout(render,300); break;
+    case "host": hostCreate(); view="h-lobby"; save(); hostOpen(); keepAwake(); break;
+    case "resumeH": view=H.status==="lobby"?"h-lobby":"h-"+H.status; hostOpen(); keepAwake(); render(); break;
+    case "hoststart": hostStartRound(); view="h-play"; save(); sendAll(); render(); break;
+    case "hostreveal": hostReveal(); view="h-reveal"; render(); break;
+    case "hostnext": hostNext(); view="h-"+H.status; render(); break;
+    case "hostagain": for(const id of H.order)H.teams[id].score=0; H.round=0; hostStartRound(); view="h-play"; save(); sendAll(); render(); break;
+    case "hostclose": stopNet(); H=null; save(); view="home"; render(); break;
+    case "teamjoin":{
+      const name=(ROOT.querySelector("#tl-name")||{}).value||"";
+      if(!name.trim()){toast("Escreva o nome da equipe");return}
+      T.name=name.trim().slice(0,20); put(TEAMSAVE,{code:T.code,tid:T.tid,name:T.name});
+      failures=0; view="t-wait"; teamOpen(); keepAwake(); break;}
+    case "teamcancel": stopNet(); T=null; try{history.replaceState(null,"",location.pathname)}catch(e){} view="home"; HUB.go("hub"); break;
+    case "retry": failures=0; if(T) teamOpen(); else if(H) hostOpen(); break;
+    case "back":
+      if(!backArmed){backArmed=true;render();setTimeout(()=>{if(backArmed){backArmed=false;render()}},3000);break}
+      backArmed=false;
+      if(view.startsWith("t-")){act("teamcancel");break}
+      if(view.startsWith("h-")){stopNet();view="home";render();break}   // a sala fica guardada para voltar
+      view="home";render();break;
+  }
+  // a TV redesenha quando o estado da sala muda por ação local
+  if(H&&view==="h-"+H.status) {}
+}
+ROOT.addEventListener("click",e=>{
+  const k=e.target.closest("[data-k]");if(k){press(k.dataset.k);return}
+  const a=e.target.closest("[data-act]");if(a)act(a.dataset.act,a.dataset.v);
+});
+document.addEventListener("keydown",e=>{
+  if(HUB.active!=="telao"||e.target.tagName==="INPUT"||e.metaKey||e.ctrlKey||e.altKey) return;
+  if(e.key==="Enter"){e.preventDefault();press("ENTER")}
+  else if(e.key==="Backspace"){e.preventDefault();press("BACK")}
+  else{const c=norm(e.key);if(c.length===1)press(c)}
+});
+ROOT.addEventListener("keydown",e=>{
+  if(e.target.id==="tl-name"&&e.key==="Enter"){e.preventDefault();act("teamjoin")}
+});
+window.addEventListener("resize",()=>{if(HUB.active==="telao"&&/play/.test(view))render()});
+// quando a TV hospeda, o estado da sala decide a tela
+function syncHostView(){if(H&&view.startsWith("h-")&&view!=="h-"+H.status)view="h-"+H.status}
+const _render=render; render=function(){syncHostView();_render()};
+
+return {
+  mount(){
+    if(!booted){
+      booted=true;
+      const s=get(SAVE);
+      if(s){if(s.cfg)cfg=Object.assign(cfg,s.cfg);if(s.S&&s.S.teams)S=s.S;if(s.H&&s.H.code)H=s.H}
+      const code=norm(new URLSearchParams(location.search).get("tv")).slice(0,5);
+      if(code.length===5){
+        const p=get(TEAMSAVE);
+        T={code,tid:(p&&p.tid)||genId(),name:(p&&p.code===code&&p.name)||"",st:null,pending:false};
+        if(p&&p.code===code&&p.name){view="t-wait";render();teamOpen();return}
+        view="t-join";
+      }
+    }
+    render();
+  },
+  unmount(){},
+  _test:{localStart,localGuess,localRound,hostCreate,hostJoin,hostStartRound,hostGuess,hostAllDone,teamView,roundPoints,
+    get S(){return S},get H(){return H},set cfg(v){cfg=v},score,draw,inDict,
+    show(v){view=v;render()},team(code,m){T={code,tid:'x',name:m.name,st:null,pending:false};hconn={open:true,send(){}};teamState(m)}}
+};
+})();
+
+</script>
+<script>
+// Peças comuns dos jogos de equipe no telão: conexão TV ⇄ celulares, telas de sala e placar.
+window.TVKIT=(function(){
+const ICE={iceServers:[
+  {urls:["stun:stun.l.google.com:19302","stun:stun1.l.google.com:19302","stun:stun2.l.google.com:19302"]},
+  {urls:"stun:stun.cloudflare.com:3478"},
+  {urls:["turn:eu-0.turn.peerjs.com:3478","turn:us-0.turn.peerjs.com:3478"],username:"peerjs",credential:"peerjsp"}
+]};
+const COLORS=["#e2574c","#2f7fd8","#2f9e5a","#e0a12a","#8e5bd6","#d6559a","#1f9fa0","#c46a2d"];
+const ABC="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const KEYS=["QWERTYUIOP","ASDFGHJKL","EZXCVBNMB"];
+function norm(s){return String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toUpperCase().replace(/[^A-Z]/g,"")}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function rnd(n){const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%n}
+function genCode(){let s="";for(let i=0;i<5;i++)s+=ABC[rnd(ABC.length)];return s}
+function genId(){return "e"+Date.now().toString(36)+rnd(1e9).toString(36)}
+function newPeer(id){const o={debug:0,config:ICE};return id?new Peer(id,o):new Peer(o)}
+function put(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+let toastT=null;
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2400)}
+const pts=k=>`${k} ponto${k>1?"s":""}`;
+
+/* ---- TV (anfitrião): abre a sala e recebe as equipes ---- */
+function host({prefix,code,onData,onChange,canRecode}){
+  const o={code,conns:[],net:"opening",peer:null,dead:false};
+  let retryT=null,beatT=null,tries=0;
+  function open(){
+    clearTimeout(retryT);
+    if(o.peer){try{o.peer.destroy()}catch(e){} o.peer=null}
+    if(o.dead) return;
+    if(typeof Peer==="undefined"){o.net="nolib";onChange();return}
+    if(!navigator.onLine){o.net="nointernet";onChange();return}
+    o.net="opening";onChange();
+    const p=o.peer=newPeer(prefix+o.code);
+    p.on("open",()=>{tries=0;o.net="ready";onChange()});
+    p.on("connection",wire);
+    p.on("disconnected",()=>{try{if(!p.destroyed)p.reconnect()}catch(e){}});
+    p.on("error",e=>{
+      const t=e&&e.type;
+      if(t==="unavailable-id"){
+        tries++;
+        if(tries>6&&canRecode&&canRecode()){tries=0;o.code=genCode()}
+        o.net="reopening";onChange();retryT=setTimeout(open,3000);
+      } else if(t!=="peer-unavailable"){o.net=navigator.onLine?"offline":"nointernet";onChange();retryT=setTimeout(open,4000)}
+    });
+    clearInterval(beatT);
+    beatT=setInterval(()=>{
+      for(const c of o.conns.slice()){
+        if(!c.open) continue;
+        try{c.send({t:"ping"})}catch(e){}
+        if(Date.now()-c.lastHeard>15000){try{c.close()}catch(e){} o.conns=o.conns.filter(x=>x!==c);onChange()}
+      }
+    },4000);
+  }
+  function wire(c){
+    c.lastHeard=Date.now();o.conns.push(c);
+    c.on("data",m=>{c.lastHeard=Date.now();if(!m||m.t==="ping")return;onData(c,m)});
+    const gone=()=>{o.conns=o.conns.filter(x=>x!==c);onChange()};
+    c.on("close",gone);c.on("error",gone);
+  }
+  o.sendTo=(tid,msg)=>{for(const c of o.conns)if(c.tid===tid&&c.open){try{c.send(msg)}catch(e){}}};
+  o.online=tid=>o.conns.some(c=>c.tid===tid&&c.open);
+  o.revive=()=>{if(o.peer&&o.peer.disconnected&&!o.peer.destroyed){try{o.peer.reconnect()}catch(e){}} else if(!o.peer||o.peer.destroyed) open()};
+  o.retry=()=>{tries=0;open()};
+  o.close=()=>{o.dead=true;clearTimeout(retryT);clearInterval(beatT);for(const c of o.conns){try{c.close()}catch(e){}} o.conns=[];try{o.peer&&o.peer.destroy()}catch(e){} o.peer=null;o.net="off"};
+  open();
+  return o;
+}
+
+/* ---- celular da equipe: entra na sala e recebe o estado ---- */
+function team({prefix,code,tid,name,onState,onChange}){
+  const o={net:"connecting",conn:null,peer:null,dead:false};
+  let retryT=null,openT=null,beatT=null,failures=0,lastHeard=0;
+  function open(){
+    clearTimeout(retryT);clearTimeout(openT);
+    if(o.peer){try{o.peer.destroy()}catch(e){} o.peer=null}
+    if(o.dead) return;
+    if(typeof Peer==="undefined"){o.net="nolib";onChange();return}
+    if(!navigator.onLine){o.net="nointernet";onChange();return}
+    o.net="connecting";onChange();
+    const p=o.peer=newPeer();
+    p.on("open",connect);
+    p.on("disconnected",()=>{try{if(!p.destroyed)p.reconnect()}catch(e){}});
+    p.on("error",e=>{
+      const t=e&&e.type;
+      if(t==="peer-unavailable") failed("nohost");
+      else {o.net=navigator.onLine?"offline":"nointernet";onChange();retryT=setTimeout(open,4000)}
+    });
+  }
+  function connect(){
+    if(o.dead) return;
+    if(!o.peer||o.peer.destroyed||!o.peer.open) return open();
+    clearTimeout(openT);
+    const c=o.peer.connect(prefix+code,{reliable:true});
+    c.on("open",()=>{
+      clearTimeout(openT);o.conn=c;failures=0;o.net="online";lastHeard=Date.now();
+      c.send({t:"hello",tid,name:o.name||name});beat();onChange();
+    });
+    c.on("data",m=>{if(o.conn!==c)return;lastHeard=Date.now();if(!m||m.t==="ping")return;onState(m)});
+    const lost=()=>{if(o.conn===c||!o.conn){o.conn=null;clearTimeout(openT);failed("lost")}};
+    c.on("close",lost);c.on("error",lost);
+    openT=setTimeout(()=>{if(!c.open){try{c.close()}catch(e){} failed("stuck")}},12000);
+  }
+  function failed(kind){
+    if(o.dead) return;
+    failures++;
+    if(failures>=4){o.net=kind==="nohost"?"givenohost":"giveup";onChange();return}
+    o.net=kind==="nohost"?"nohost":"lost";onChange();
+    clearTimeout(retryT);retryT=setTimeout(()=>{if(o.conn&&o.conn.open)return;if(o.peer&&o.peer.open&&!o.peer.destroyed)connect();else open()},2500);
+  }
+  function beat(){
+    clearInterval(beatT);
+    beatT=setInterval(()=>{
+      if(!o.conn||!o.conn.open) return;
+      try{o.conn.send({t:"ping"})}catch(e){}
+      if(Date.now()-lastHeard>15000){const c=o.conn;o.conn=null;try{c.close()}catch(e){} failed("lost")}
+    },4000);
+  }
+  o.send=m=>{if(o.conn&&o.conn.open){try{o.conn.send(m);return true}catch(e){}}return false};
+  o.retry=()=>{failures=0;open()};
+  o.revive=()=>{if(o.peer&&o.peer.disconnected&&!o.peer.destroyed){try{o.peer.reconnect()}catch(e){}} if(o.conn&&o.conn.open)o.send({t:"sync"});else{failures=0;failed("lost")}};
+  o.close=()=>{o.dead=true;clearTimeout(retryT);clearTimeout(openT);clearInterval(beatT);try{o.conn&&o.conn.close()}catch(e){} try{o.peer&&o.peer.destroy()}catch(e){} o.conn=null;o.peer=null;o.net="off"};
+  o.name=name;
+  open();
+  return o;
+}
+
+/* ---- pedaços de tela ---- */
+function netLine(net){
+  const m={opening:"Abrindo a sala…",reopening:"Reabrindo a sala…",offline:"Sem conexão com o servidor. Tentando de novo…",nointernet:"Sem internet neste aparelho.",
+    nolib:"Não consegui carregar a parte de conexão. Verifique a internet e recarregue a página.",connecting:"Conectando…",lost:"A conexão caiu. Reconectando…",nohost:"Procurando a sala…"};
+  if(net==="giveup"||net==="givenohost") return `<div class="net">${net==="givenohost"?"Não achei a sala. Confira se o telão está com a sala aberta.":"Não consegui conectar nesta rede."} <button class="mini-btn" data-act="retry">Tentar de novo</button></div>`;
+  return m[net]?`<div class="net">${m[net]}</div>`:"";
+}
+function scoreList(list,{big=false}={}){
+  return `<ol class="scores ${big?"big":""}">${list.map((t,i)=>`<li style="--c:${t.color}" class="${t.me?"me":""}"><span class="pos">${i+1}º</span><span class="nm">${esc(t.name)}${t.me?" (vocês)":""}</span><b>${t.score}</b></li>`).join("")}</ol>`;
+}
+function keyboard(on,states={}){
+  return `<div class="kb ${on?"":"off"}">`+KEYS.map((row,ri)=>`<div class="kr">`+[...row].map((k,ki)=>{
+    if(ri===2&&ki===0) return `<button class="key wide" data-k="ENTER">ENVIAR</button>`;
+    if(ri===2&&ki===row.length-1) return `<button class="key wide" data-k="BACK" aria-label="Apagar">⌫</button>`;
+    return `<button class="key ${states[k]||""}" data-k="${k}">${k}</button>`;
+  }).join("")+`</div>`).join("")+`</div>`;
+}
+function backBtn(armed){return `<button class="back ${armed?"armed":""}" data-act="back" aria-label="Sair">${armed?"Sair?":"←"}</button>`}
+function fsBtn(){return document.fullscreenEnabled?`<button class="mini-btn" data-act="fs">${document.fullscreenElement?"Sair da tela cheia":"Tela cheia"}</button>`:""}
+function toggleFs(){if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});else document.documentElement.requestFullscreen().catch(()=>{})}
+function teamsSetup(names,back){
+  return `<div class="scroll narrow">
+    <button class="tohub" data-act="${back}">← Voltar</button>
+    <div class="hero"><h1 class="brand">Equipes<span>De 2 a 6 equipes. Cada uma ganha uma cor.</span></h1></div>
+    <div class="teamlist">${names.map((t,i)=>`<div class="teamrow" style="--c:${COLORS[i%COLORS.length]}"><span class="sw"></span>
+      <input class="text" id="tk-team-${i}" maxlength="20" value="${esc(t)}" aria-label="Nome da equipe ${i+1}">
+      ${names.length>2?`<button class="mini-btn" data-act="delteam" data-v="${i}" aria-label="Remover">✕</button>`:""}</div>`).join("")}</div>
+    ${names.length<6?`<button class="ghost" data-act="addteam">+ Adicionar equipe</button>`:""}
+    <button class="cta" data-act="startlocal">Começar</button>
+  </div>`;
+}
+function readTeams(root,names){return names.map((t,i)=>{const el=root.querySelector("#tk-team-"+i);return el?el.value:t})}
+function lobby({code,url,title,teams,online,net,armed,startLabel}){
+  return `<div class="tv wide">
+    <div class="tvtop">${backBtn(armed)}<span class="label">${esc(title)}</span>${fsBtn()}</div>
+    <div class="lobby2">
+      <div class="qrcol"><div class="qr" id="tk-qr" role="img" aria-label="QR code da sala" data-url="${esc(url)}"></div>
+        <p class="code">${esc(code)}</p><p class="hint center">Cada equipe lê o QR com a câmera do celular.</p></div>
+      <div class="lobbyside">
+        ${netLine(net)||(net==="ready"?`<div class="ok-line">Sala aberta. Esperando as equipes…</div>`:"")}
+        <span class="label">Equipes na sala</span>
+        ${teams.length?`<div class="joined">${teams.map(t=>`<span class="jt ${online(t.id)?"":"off"}" style="--c:${t.color}">${esc(t.name)}</span>`).join("")}</div>`:`<p class="hint">Nenhuma equipe ainda.</p>`}
+        <button class="cta" data-act="hoststart" ${teams.length?"":"disabled"}>${startLabel||"Começar"}</button>
+        <p class="hint">Deixe esta tela aberta. Quem entrar depois do começo também joga.</p>
+      </div>
+    </div>
+  </div>`;
+}
+function drawQR(root){
+  const el=root.querySelector("#tk-qr");if(!el||typeof QRCode==="undefined")return;
+  el.innerHTML="";new QRCode(el,{text:el.dataset.url,width:520,height:520,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
+}
+function joinView(game,code,name){
+  return `<div class="scroll narrow" style="justify-content:center">
+    <div class="hero"><h1 class="brand">${esc(game)}<span>Sala <b class="codeinline">${esc(code)}</b></span></h1></div>
+    <div class="field"><label class="label" for="tk-name">Nome da equipe</label>
+      <input class="text" id="tk-name" maxlength="20" placeholder="Ex.: Leões de Judá" value="${esc(name||"")}" autocomplete="off"></div>
+    <button class="cta" data-act="teamjoin">Entrar na sala</button>
+    <button class="ghost" data-act="teamcancel">Voltar aos jogos</button>
+  </div>`;
+}
+function waitView(code,net){
+  return `<div class="scroll narrow" style="justify-content:center;text-align:center">
+    <p class="code">${esc(code)}</p>
+    ${netLine(net)||`<div class="wait"><span class="spin"></span>Entrando na sala…</div>`}
+    <p class="hint">O telão precisa estar com a sala aberta.</p>
+    <button class="ghost" data-act="teamcancel">Cancelar</button></div>`;
+}
+function teamHead(st,net,armed){
+  return `<div class="tvtop">${backBtn(armed)}<span class="tname" style="--c:${st.color}"><i></i>${esc(st.name)}</span><span class="sc">${st.score} ${st.score===1?"pt":"pts"}</span></div>${netLine(net)}`;
+}
+function finalView(list,{armed,againAct,closeAct,closeLabel}){
+  const top=list[0]||{name:"",score:0},tie=list.length>1&&list[1].score===top.score;
+  return `<div class="tv wide reveal"><div class="tvtop">${backBtn(armed)}${fsBtn()}</div>
+    <div class="revealbox"><span class="label">Resultado final</span>
+    <p class="word">${tie?"Empate!":esc(top.name)}</p>
+    <p class="verdict">${tie?"Mais de uma equipe terminou com a mesma pontuação.":`venceu com ${pts(top.score)}!`}</p>
+    ${scoreList(list,{big:true})}
+    ${againAct?`<button class="cta" data-act="${againAct}">Jogar de novo com as mesmas equipes</button>`:""}
+    <button class="ghost" data-act="${closeAct}">${closeLabel||"Voltar ao início"}</button></div></div>`;
+}
+function teamEndView(st,armed){
+  const pos=st.board.findIndex(b=>b.me)+1;
+  return `<div class="col">${teamHead(st,"online",armed)}<div class="center-box">
+    <span class="label">Fim de jogo</span><p class="word">${pos}º lugar</p>
+    <p class="verdict">Vocês fizeram ${pts(st.score)}.</p>${scoreList(st.board)}
+    <button class="ghost" data-act="teamcancel">Voltar aos jogos</button></div></div>`;
+}
+let wake=null;
+async function keepAwake(){try{if("wakeLock" in navigator&&!wake&&document.visibilityState==="visible"){wake=await navigator.wakeLock.request("screen");wake.addEventListener("release",()=>wake=null)}}catch(e){}}
+function ranking(teams,order,meId){return order.map(id=>({id,...teams[id],me:id===meId})).sort((a,b)=>b.score-a.score)}
+function clearParam(){try{history.replaceState(null,"",location.pathname)}catch(e){}}
+
+return {ICE,COLORS,norm,esc,rnd,genCode,genId,put,get,toast,pts,host,team,netLine,scoreList,keyboard,backBtn,fsBtn,toggleFs,
+  teamsSetup,readTeams,lobby,drawQR,joinView,waitView,teamHead,finalView,teamEndView,keepAwake,ranking,clearParam};
+})();
+
+</script>
+<script>
+window.GAMES=window.GAMES||{};
+GAMES.cacatv=(function(){
+const K=TVKIT, ROOT=document.getElementById("cacatv");
+const SAVE="cacatv-v1", TEAMSAVE="cacatv-equipe-v1", PREFIX="caca-telao-lgda-", GAME="Caça-palavras no Telão";
+const ALL="Tudo misturado", THEMES=Object.keys(DICAS);
+const LEVELS={facil:"Fácil",medio:"Médio",dificil:"Difícil"};
+let view="home", booted=false, armed=false, kbOn=false;
+let cfg={theme:THEMES[0],level:"medio",teams:["Equipe 1","Equipe 2"]};
+let LS=null, HS=null, T=null, room=null, link=null, drag=null, pending=null, pick=null;
+
+function save(){K.put(SAVE,{cfg,LS,HS})}
+const gen=(theme,level)=>{const g=GAMES.caca._test.generate(theme,level);g.words.forEach(w=>{w.by=null;delete w.found;delete w.color});return g};
+const endOf=w=>[w.r+w.dr*(w.g.length-1),w.c+w.dc*(w.g.length-1)];
+function matchIn(words,a,b){
+  for(let i=0;i<words.length;i++){
+    const w=words[i],[er,ec]=endOf(w);
+    if((a[0]===w.r&&a[1]===w.c&&b[0]===er&&b[1]===ec)||(b[0]===w.r&&b[1]===w.c&&a[0]===er&&a[1]===ec)) return i;
+  }
+  return -1;
+}
+function snap(a,r,c,S){
+  let dr=r-a[0],dc=c-a[1];const ar=Math.abs(dr),ac=Math.abs(dc);
+  if(ar>=2*ac)dc=0;else if(ac>=2*ar)dr=0;else{const m=Math.max(ar,ac);dr=Math.sign(dr)*m;dc=Math.sign(dc)*m}
+  let er=a[0]+dr,ec=a[1]+dc;
+  while(er<0||er>=S||ec<0||ec>=S){dr-=Math.sign(dr);dc-=Math.sign(dc);er=a[0]+dr;ec=a[1]+dc}
+  return [er,ec];
+}
+
+/* ---------- regras: só telão ---------- */
+function localStart(){
+  LS={teams:cfg.teams.map((n,i)=>({name:n.trim()||`Equipe ${i+1}`,color:K.COLORS[i%K.COLORS.length],score:0})),theme:cfg.theme,level:cfg.level,round:1,grid:gen(cfg.theme,cfg.level),last:-1,status:"play"};
+}
+function localClaim(wi,team){
+  const w=LS.grid.words[wi];if(w.by!==null) return;
+  w.by=team;LS.teams[team].score++;LS.last=wi;
+  if(LS.grid.words.every(x=>x.by!==null)) LS.status="done";
+}
+/* ---------- regras: telão + celulares ---------- */
+function hostCreate(){HS={code:K.genCode(),theme:cfg.theme,level:cfg.level,round:0,status:"lobby",teams:{},order:[],grid:null,last:null}}
+function hostJoin(tid,name){
+  if(!HS.teams[tid]){HS.teams[tid]={name,color:K.COLORS[HS.order.length%K.COLORS.length],score:0};HS.order.push(tid);return true}
+  HS.teams[tid].name=name;return false;
+}
+function hostRound(){HS.round++;HS.grid=gen(HS.theme,HS.level);HS.status="play";HS.last=null}
+// Retorna "ok" (achou), "taken" (outra equipe achou antes) ou "miss".
+function hostPick(tid,round,a,b){
+  if(!HS.teams[tid]||HS.status!=="play"||round!==HS.round) return {r:"late"};
+  const ok=p=>Array.isArray(p)&&p.length===2&&p.every(x=>Number.isInteger(x)&&x>=0&&x<HS.grid.size);
+  if(!ok(a)||!ok(b)) return {r:"miss"};
+  const i=matchIn(HS.grid.words,a,b);
+  if(i<0) return {r:"miss"};
+  const w=HS.grid.words[i];
+  if(w.by) return {r:"taken",by:HS.teams[w.by]?HS.teams[w.by].name:""};
+  w.by=tid;HS.teams[tid].score++;HS.last={i,tid};
+  if(HS.grid.words.every(x=>x.by)) HS.status="done";
+  return {r:"ok",i};
+}
+function teamView(tid){
+  const t=HS.teams[tid];if(!t) return null;
+  const g=HS.grid, last=HS.last&&g?g.words[HS.last.i]:null;
+  return {t:"state",status:HS.status,round:HS.round,name:t.name,color:t.color,score:t.score,
+    size:g?g.size:0,cells:g?g.cells:"",
+    words:g?g.words.map(w=>w.by?{w:w.w,color:HS.teams[w.by].color,mine:w.by===tid,line:[w.r,w.c,...endOf(w)]}:{w:w.w}):[],
+    last:last?{w:last.w,clue:last.clue,ref:last.ref,team:HS.teams[HS.last.tid].name,color:HS.teams[HS.last.tid].color}:null,
+    board:K.ranking(HS.teams,HS.order,tid).map(x=>({name:x.name,color:x.color,score:x.score,me:x.me}))};
+}
+function sendAll(){if(room&&HS)for(const id of HS.order)room.sendTo(id,teamView(id))}
+function onHostData(c,m){
+  if(!HS) return;
+  if(m.t==="hello"){
+    const tid=String(m.tid||"").slice(0,40),name=String(m.name||"").trim().slice(0,20)||"Equipe";if(!tid)return;
+    c.tid=tid;if(hostJoin(tid,name))K.toast(`${name} entrou`);save();sendAll();render();return;
+  }
+  if(!c.tid) return;
+  if(m.t==="sync"){room.sendTo(c.tid,teamView(c.tid));return}
+  if(m.t==="pick"){
+    const r=hostPick(c.tid,m.round,m.a,m.b);
+    if(r.r==="ok"){const w=HS.grid.words[r.i];K.toast(`${HS.teams[c.tid].name} achou ${w.w.toUpperCase()}`);save();sendAll();render()}
+    else room.sendTo(c.tid,{t:"msg",kind:r.r,by:r.by||""});
+  }
+}
+
+/* ---------- desenho da grade ---------- */
+function boardHTML(size,cells,cs,lines,{interactive,pend}={}){
+  let h="";
+  for(let r=0;r<size;r++)for(let c=0;c<size;c++){
+    const p=pend&&pend[0]===r&&pend[1]===c;
+    h+=`<div class="lt ${p?"pend":""}" data-r="${r}" data-c="${c}">${cells[r*size+c]}</div>`;
+  }
+  return `<div class="wsboard ${interactive?"touch":""}" id="ct-board"><svg id="ct-svg" width="${size*cs}" height="${size*cs}">${linesSVG(lines,cs)}</svg>
+    <div class="letters" style="grid-template-columns:repeat(${size},${cs}px);grid-auto-rows:${cs}px;font-size:${Math.round(cs*.52)}px">${h}</div></div>`;
+}
+function linesSVG(lines,cs){
+  return lines.map(l=>{const x1=l.a[1]*cs+cs/2,y1=l.a[0]*cs+cs/2,x2=l.b[1]*cs+cs/2,y2=l.b[0]*cs+cs/2;
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${l.color}" stroke-width="${cs*.78}" stroke-linecap="round" opacity="${l.op||.42}"/>`}).join("");
+}
+function tvCell(size){return Math.max(22,Math.min(70,Math.floor(Math.min((window.innerHeight-130)/size,(Math.min(window.innerWidth,1500)*0.6-40)/size))))}
+function phoneCell(size){return Math.max(20,Math.min(42,Math.floor(Math.min(Math.min(window.innerWidth,560)-44,window.innerHeight-330)/size)))}
+function wordChips(words,colorOf){
+  return `<div class="wchips">${words.map(w=>{const c=colorOf(w);return `<span class="wd ${c?"done":""}" style="--c:${c||"var(--line)"}">${K.esc(w.w.toUpperCase())}</span>`}).join("")}</div>`;
+}
+function lastBar(l){return l?`<div class="lastbar" style="--c:${l.color}"><b>${K.esc(l.w.toUpperCase())}</b> ${K.esc(l.clue)} ${l.ref?`<em>(${K.esc(l.ref)})</em>`:""}<small>achada por ${K.esc(l.team)}</small></div>`:`<div class="lastbar empty">As dicas das palavras achadas aparecem aqui.</div>`}
+
+/* ---------- telas ---------- */
+function render(){
+  if(HS&&view.startsWith("h-")&&view!=="h-lobby"&&view!=="h-"+HS.status) view="h-"+HS.status;
+  const v={home:vHome,teams:()=>K.teamsSetup(cfg.teams,"home"),"l-play":vLocal,"l-end":vLocalEnd,
+    "h-lobby":vLobby,"h-play":vHost,"h-done":vHost,"h-end":vHostEnd,
+    "t-join":()=>K.joinView(GAME,T.code,T.name),"t-wait":()=>K.waitView(T.code,link?link.net:"connecting"),"t-lobby":vTeamLobby,"t-play":vTeam,"t-done":vTeam,"t-end":()=>K.teamEndView(T.st,armed)}[view]||vHome;
+  ROOT.innerHTML=v();
+  if(view==="h-lobby") K.drawQR(ROOT);
+}
+function vHome(){
+  const t=n=>`<button class="theme" data-act="theme" data-v="${K.esc(n)}" aria-pressed="${cfg.theme===n}">${K.esc(n)}</button>`;
+  return `<div class="scroll narrow">
+    <button class="tohub" data-act="tocaca">← Caça-palavras</button>
+    <div class="hero"><h1 class="brand">Caça-palavras no Telão<span>Equipes disputam quem acha mais palavras.</span></h1></div>
+    ${LS&&LS.status!=="end"?`<button class="cta resume" data-act="resumeL">Continuar partida no telão</button>`:""}
+    ${HS&&HS.status!=="end"?`<button class="cta resume" data-act="resumeH">Voltar para a sala ${K.esc(HS.code)}</button>`:""}
+    <div class="field"><span class="label">Tema</span><div class="themes">${THEMES.map(t).join("")}${t(ALL)}</div></div>
+    <div class="field"><span class="label">Nível</span><div class="seg3">${Object.entries(LEVELS).map(([k,v])=>`<button data-act="level" data-v="${k}" aria-pressed="${cfg.level===k}">${v}</button>`).join("")}</div></div>
+    <div class="modes">
+      <button class="mode" data-act="local"><b>Só o telão</b><span>A grade grande na TV. Quando uma equipe acha uma palavra, quem comanda marca na tela e toca na equipe. Não precisa de internet.</span></button>
+      <button class="mode" data-act="host"><b>Telão + celulares</b><span>A mesma grade no celular de cada equipe. Quem acha primeiro fica com a palavra, pintada com a sua cor na TV.</span></button>
+    </div>
+  </div>`;
+}
+function vLocal(){
+  const g=LS.grid,cs=tvCell(g.size),wide=window.innerWidth>=900;
+  const lines=g.words.filter(w=>w.by!==null).map(w=>({a:[w.r,w.c],b:endOf(w),color:LS.teams[w.by].color}));
+  const lw=LS.last>=0?g.words[LS.last]:null;
+  const picker=pick?`<div class="overlay"><div class="pickbox"><span class="label">Quem achou</span><p class="word sm">${K.esc(g.words[pick.wi].w.toUpperCase())}</p>
+    <div class="pickteams">${LS.teams.map((t,i)=>`<button class="pt" style="--c:${t.color}" data-act="claim" data-v="${i}">${K.esc(t.name)}</button>`).join("")}</div>
+    <button class="ghost" data-act="cancelpick">Cancelar</button></div></div>`:"";
+  const done=LS.status==="done"?`<div class="overlay"><div class="pickbox"><span class="label">Grade completa</span><p class="word sm">Todas achadas!</p>
+    ${K.scoreList(LS.teams.slice().sort((a,b)=>b.score-a.score))}
+    <button class="cta" data-act="localnext">Nova grade</button><button class="ghost" data-act="localend">Ver resultado final</button></div></div>`:"";
+  return `<div class="tv ${wide?"wide":""}">
+    <div class="tvtop">${K.backBtn(armed)}<span class="label">${K.esc(LS.theme)} · ${LEVELS[LS.level]} · grade ${LS.round}</span>${K.fsBtn()}</div>
+    <div class="tvbody">
+      <div class="boardcol center">${boardHTML(g.size,g.cells,cs,lines,{interactive:true,pend:pending})}<p class="hint center">Arraste da primeira à última letra, ou toque na primeira e depois na última.</p></div>
+      <div class="side">
+        ${K.scoreList(LS.teams.map(t=>({...t})).sort((a,b)=>b.score-a.score))}
+        ${lastBar(lw?{w:lw.w,clue:lw.clue,ref:lw.ref,team:LS.teams[lw.by].name,color:LS.teams[lw.by].color}:null)}
+        ${wordChips(g.words,w=>w.by!==null?LS.teams[w.by].color:"")}
+        <div class="tools"><button class="mini-btn" data-act="localnext">Nova grade</button><button class="mini-btn" data-act="localend">Encerrar</button></div>
+      </div>
+    </div>${picker}${done}</div>`;
+}
+function vLocalEnd(){return K.finalView(LS.teams.map(t=>({...t})).sort((a,b)=>b.score-a.score),{armed,againAct:"localagain",closeAct:"home"})}
+function vLobby(){
+  return K.lobby({code:HS.code,url:location.href.split(/[?#]/)[0]+"?ctv="+HS.code,title:`${GAME} · ${HS.theme} · ${LEVELS[HS.level]}`,
+    teams:HS.order.map(id=>({id,...HS.teams[id]})),online:id=>room&&room.online(id),net:room?room.net:"off",armed,startLabel:"Começar"});
+}
+function vHost(){
+  const g=HS.grid,cs=tvCell(g.size),wide=window.innerWidth>=900;
+  const lines=g.words.filter(w=>w.by).map(w=>({a:[w.r,w.c],b:endOf(w),color:HS.teams[w.by].color}));
+  const lw=HS.last?g.words[HS.last.i]:null, lt=HS.last?HS.teams[HS.last.tid]:null;
+  const done=HS.status==="done"?`<div class="overlay"><div class="pickbox"><span class="label">Grade completa</span><p class="word sm">Todas achadas!</p>
+    ${K.scoreList(K.ranking(HS.teams,HS.order))}
+    <button class="cta" data-act="hostnext">Nova grade</button><button class="ghost" data-act="hostend">Ver resultado final</button></div></div>`:"";
+  return `<div class="tv ${wide?"wide":""}">
+    <div class="tvtop">${K.backBtn(armed)}<span class="label">${K.esc(HS.theme)} · ${LEVELS[HS.level]} · grade ${HS.round}</span>${K.fsBtn()}</div>
+    ${K.netLine(room?room.net:"off")}
+    <div class="tvbody">
+      <div class="boardcol center">${boardHTML(g.size,g.cells,cs,lines)}</div>
+      <div class="side">
+        ${K.scoreList(K.ranking(HS.teams,HS.order))}
+        ${lastBar(lw?{w:lw.w,clue:lw.clue,ref:lw.ref,team:lt.name,color:lt.color}:null)}
+        ${wordChips(g.words,w=>w.by?HS.teams[w.by].color:"")}
+        <div class="tools"><button class="mini-btn" data-act="hostnext">Nova grade</button><button class="mini-btn" data-act="hostend">Encerrar</button></div>
+        <p class="hint">Para entrar agora: ${K.esc((location.href.split(/[?#]/)[0]+"?ctv="+HS.code).replace(/^https?:\/\//,""))}</p>
+      </div>
+    </div>${done}</div>`;
+}
+function vHostEnd(){return K.finalView(K.ranking(HS.teams,HS.order),{armed,againAct:"hostagain",closeAct:"hostclose",closeLabel:"Fechar a sala"})}
+function vTeamLobby(){return `<div class="col">${K.teamHead(T.st,link.net,armed)}<div class="center-box"><span class="label">Vocês estão na sala!</span><p class="word sm">Olhem para o telão</p><p class="hint">O jogo começa quando o telão iniciar.</p></div></div>`}
+function vTeam(){
+  const s=T.st,cs=phoneCell(s.size);
+  const lines=s.words.filter(w=>w.line).map(w=>({a:[w.line[0],w.line[1]],b:[w.line[2],w.line[3]],color:w.color}));
+  const mine=s.words.filter(w=>w.mine).length, left=s.words.filter(w=>!w.color).length;
+  return `<div class="col">${K.teamHead(s,link.net,armed)}
+    <div class="prompt">${s.status==="done"?"Grade completa! Olhem o telão.":`Faltam ${left} · vocês acharam ${mine}`}</div>
+    <div class="stage">${boardHTML(s.size,s.cells,cs,lines,{interactive:s.status==="play",pend:pending})}</div>
+    ${lastBar(s.last)}
+    ${wordChips(s.words,w=>w.color||"")}
+  </div>`;
+}
+
+/* ---------- toque na grade (telão e celular) ---------- */
+function cellFrom(e){const el=document.elementFromPoint(e.clientX,e.clientY);const c=el&&el.closest&&el.closest("#cacatv .wsboard.touch .lt");return c?[+c.dataset.r,+c.dataset.c]:null}
+function sizeNow(){return view==="l-play"?LS.grid.size:T&&T.st?T.st.size:0}
+function cellPx(){return view==="l-play"?tvCell(LS.grid.size):phoneCell(T.st.size)}
+function drawDrag(){
+  const svg=ROOT.querySelector("#ct-svg");if(!svg)return;
+  svg.querySelectorAll(".drag").forEach(x=>x.remove());
+  if(drag){svg.insertAdjacentHTML("beforeend",linesSVG([{a:drag.a,b:drag.b,color:"var(--sel)",op:.6}],cellPx()).replace("<line ","<line class=\"drag\" "))}
+}
+ROOT.addEventListener("pointerdown",e=>{
+  if(!(view==="l-play"&&LS.status==="play"&&!pick)&&!(view==="t-play"&&T.st.status==="play")) return;
+  const p=cellFrom(e);if(!p)return;e.preventDefault();
+  drag={a:p,b:p,id:e.pointerId};try{ROOT.querySelector("#ct-board").setPointerCapture(e.pointerId)}catch(_){}
+  drawDrag();
+});
+ROOT.addEventListener("pointermove",e=>{
+  if(!drag||e.pointerId!==drag.id)return;const p=cellFrom(e);if(!p)return;
+  const b=snap(drag.a,p[0],p[1],sizeNow());if(b[0]!==drag.b[0]||b[1]!==drag.b[1]){drag.b=b;drawDrag()}
+});
+ROOT.addEventListener("pointerup",e=>{
+  if(!drag||e.pointerId!==drag.id)return;
+  let {a,b}=drag;drag=null;
+  if(a[0]===b[0]&&a[1]===b[1]){
+    if(pending&&(pending[0]!==a[0]||pending[1]!==a[1])){b=snap(pending,a[0],a[1],sizeNow());a=pending;pending=null}
+    else{pending=pending?null:a;render();return}
+  } else pending=null;
+  select(a,b);
+});
+ROOT.addEventListener("pointercancel",()=>{drag=null;drawDrag()});
+function shakeBoard(){const b=ROOT.querySelector("#ct-board");if(b){b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake")}}
+function select(a,b){
+  if(view==="l-play"){
+    const i=matchIn(LS.grid.words,a,b);
+    if(i<0){render();shakeBoard();return}
+    if(LS.grid.words[i].by!==null){K.toast("Essa palavra já foi achada");render();return}
+    pick={wi:i};render();
+  } else if(view==="t-play"){
+    render();
+    if(!link.send({t:"pick",round:T.st.round,a,b})) K.toast("Sem conexão com o telão");
+  }
+}
+
+/* ---------- celular: estado vindo da TV ---------- */
+function onTeamState(m){
+  if(m.t==="msg"){
+    if(m.kind==="taken") K.toast(m.by?`${m.by} achou essa antes!`:"Outra equipe achou antes!");
+    else if(m.kind==="miss"){shakeBoard()}
+    return;
+  }
+  if(m.t!=="state") return;
+  const prev=T.st;T.st=m;
+  if(prev&&prev.round!==m.round){pending=null}
+  if(prev&&m.score>prev.score) K.toast("Achou! +1 ponto");
+  view=m.status==="lobby"?"t-lobby":m.status==="end"?"t-end":"t-"+m.status;
+  K.keepAwake();render();
+}
+
+/* ---------- ações ---------- */
+function act(x,v){
+  if(x!=="back") armed=false;
+  switch(x){
+    case "tocaca": HUB.go("caca"); break;
+    case "home": if(view==="teams")cfg.teams=K.readTeams(ROOT,cfg.teams); view="home"; save(); render(); break;
+    case "theme": cfg.theme=v; save(); render(); break;
+    case "level": cfg.level=v; save(); render(); break;
+    case "local": view="teams"; render(); break;
+    case "addteam": cfg.teams=K.readTeams(ROOT,cfg.teams); if(cfg.teams.length<6)cfg.teams.push(`Equipe ${cfg.teams.length+1}`); render(); break;
+    case "delteam": cfg.teams=K.readTeams(ROOT,cfg.teams); cfg.teams.splice(+v,1); render(); break;
+    case "startlocal": cfg.teams=K.readTeams(ROOT,cfg.teams); localStart(); view="l-play"; save(); K.keepAwake(); render(); break;
+    case "resumeL": view=LS.status==="end"?"l-end":"l-play"; K.keepAwake(); render(); break;
+    case "claim": if(pick){localClaim(pick.wi,+v);pick=null;save();render()} break;
+    case "cancelpick": pick=null; render(); break;
+    case "localnext": LS.round++; LS.grid=gen(LS.theme,LS.level); LS.last=-1; LS.status="play"; pending=null; save(); render(); break;
+    case "localend": LS.status="end"; view="l-end"; save(); render(); break;
+    case "localagain": LS.teams.forEach(t=>t.score=0); LS.round=1; LS.grid=gen(LS.theme,LS.level); LS.last=-1; LS.status="play"; view="l-play"; save(); render(); break;
+    case "fs": K.toggleFs(); setTimeout(render,300); break;
+    case "host": hostCreate(); view="h-lobby"; openRoom(); save(); K.keepAwake(); render(); break;
+    case "resumeH": view=HS.status==="lobby"?"h-lobby":"h-"+HS.status; openRoom(); K.keepAwake(); render(); break;
+    case "hoststart": hostRound(); view="h-play"; save(); sendAll(); render(); break;
+    case "hostnext": hostRound(); view="h-play"; save(); sendAll(); render(); break;
+    case "hostend": HS.status="end"; view="h-end"; save(); sendAll(); render(); break;
+    case "hostagain": for(const id of HS.order)HS.teams[id].score=0; HS.round=0; hostRound(); view="h-play"; save(); sendAll(); render(); break;
+    case "hostclose": if(room){room.close();room=null} HS=null; save(); view="home"; render(); break;
+    case "teamjoin":{
+      const name=(ROOT.querySelector("#tk-name")||{}).value||"";
+      if(!name.trim()){K.toast("Escreva o nome da equipe");return}
+      T.name=name.trim().slice(0,20);K.put(TEAMSAVE,{code:T.code,tid:T.tid,name:T.name});
+      view="t-wait";openLink();K.keepAwake();render();break;}
+    case "teamcancel": if(link){link.close();link=null} T=null; K.clearParam(); view="home"; HUB.go("hub"); break;
+    case "retry": if(link)link.retry(); else if(room)room.retry(); break;
+    case "back":
+      if(!armed){armed=true;render();setTimeout(()=>{if(armed){armed=false;render()}},3000);break}
+      armed=false;
+      if(view.startsWith("t-")){act("teamcancel");break}
+      if(view.startsWith("h-")){if(room){room.close();room=null}}
+      pick=null;view="home";render();break;
+  }
+}
+function openRoom(){if(room)room.close();room=K.host({prefix:PREFIX,code:HS.code,onData:onHostData,onChange:()=>{if(room&&HS&&room.code!==HS.code){HS.code=room.code;save()}if(view.startsWith("h-"))render()},canRecode:()=>HS&&HS.status==="lobby"&&!HS.order.length})}
+function openLink(){if(link)link.close();link=K.team({prefix:PREFIX,code:T.code,tid:T.tid,name:T.name,onState:onTeamState,onChange:()=>{if(view==="t-wait"||view.startsWith("t-"))render()}})}
+ROOT.addEventListener("click",e=>{const a=e.target.closest("[data-act]");if(a)act(a.dataset.act,a.dataset.v)});
+ROOT.addEventListener("keydown",e=>{if(e.target.id==="tk-name"&&e.key==="Enter"){e.preventDefault();act("teamjoin")}});
+document.addEventListener("visibilitychange",()=>{if(HUB.active!=="cacatv"||document.visibilityState!=="visible")return;if(link)link.revive();if(room)room.revive();K.keepAwake()});
+window.addEventListener("resize",()=>{if(HUB.active==="cacatv"&&/play|done/.test(view))render()});
+
+return {
+  mount(){
+    if(!booted){
+      booted=true;
+      const s=K.get(SAVE);if(s){if(s.cfg)cfg=Object.assign(cfg,s.cfg);if(s.LS&&s.LS.grid)LS=s.LS;if(s.HS&&s.HS.code)HS=s.HS}
+      const code=K.norm(new URLSearchParams(location.search).get("ctv")).slice(0,5);
+      if(code.length===5){
+        const p=K.get(TEAMSAVE);
+        T={code,tid:(p&&p.tid)||K.genId(),name:(p&&p.code===code&&p.name)||(p&&p.name)||"",st:null};
+        if(p&&p.code===code&&p.name){view="t-wait";openLink();render();return}
+        view="t-join";
+      }
+    }
+    render();
+  },
+  unmount(){},
+  _test:{localStart,localClaim,hostCreate,hostJoin,hostRound,hostPick,teamView,get LS(){return LS},get HS(){return HS},set cfg(v){cfg=v},
+    show(v){view=v;render()},team(m){T={code:"ABCDE",tid:"x",name:m.name,st:null};link={net:"online",send(){return true},close(){},revive(){}};onTeamState(m)}}
+};
+})();
+
+</script>
+<script>
+window.GAMES=window.GAMES||{};
+GAMES.cruztv=(function(){
+const K=TVKIT, ROOT=document.getElementById("cruztv");
+const SAVE="cruztv-v1", TEAMSAVE="cruztv-equipe-v1", PREFIX="cruz-telao-lgda-", GAME="Cruzadinha no Telão";
+const ALL="Tudo misturado", THEMES=Object.keys(DICAS);
+const SIZES={pequena:{n:6,label:"Pequena"},media:{n:9,label:"Média"},grande:{n:12,label:"Grande"}};
+let view="home", booted=false, armed=false, kbOn=null;
+let cfg={theme:THEMES[0],size:"media",teams:["Equipe 1","Equipe 2"]};
+let LS=null, HS=null, T=null, room=null, link=null, cur="", pick=null, sel=0, pendingAns=false;
+
+function save(){K.put(SAVE,{cfg,LS,HS})}
+function newPuzzle(theme,size){
+  const G=GAMES.cruz.gen, p=G.buildPuzzle(G.entriesFor(theme),SIZES[size].n);
+  p.words.forEach(w=>w.by=null);return p;
+}
+const cellsOf=w=>Array.from({length:w.g.length},(_,i)=>[w.r+(w.dir==="V"?i:0),w.c+(w.dir==="H"?i:0)]);
+const dirName=d=>d==="H"?"horizontal":"vertical";
+
+/* ---------- regras: só telão ---------- */
+function localStart(){
+  LS={teams:cfg.teams.map((n,i)=>({name:n.trim()||`Equipe ${i+1}`,color:K.COLORS[i%K.COLORS.length],score:0})),theme:cfg.theme,size:cfg.size,round:1,puz:newPuzzle(cfg.theme,cfg.size),last:-1,status:"play"};
+  sel=0;cur="";
+}
+function localCheck(i,w){return K.norm(w)===LS.puz.words[i].g}
+function localClaim(i,team){
+  const w=LS.puz.words[i];if(w.by!==null)return;
+  w.by=team;if(team>=0)LS.teams[team].score++;LS.last=i;
+  if(LS.puz.words.every(x=>x.by!==null)) LS.status="done";
+}
+
+/* ---------- regras: telão + celulares ---------- */
+function hostCreate(){HS={code:K.genCode(),theme:cfg.theme,size:cfg.size,round:0,status:"lobby",teams:{},order:[],puz:null,last:null}}
+function hostJoin(tid,name){
+  if(!HS.teams[tid]){HS.teams[tid]={name,color:K.COLORS[HS.order.length%K.COLORS.length],score:0,cool:0};HS.order.push(tid);return true}
+  HS.teams[tid].name=name;return false;
+}
+function hostRound(){HS.round++;HS.puz=newPuzzle(HS.theme,HS.size);HS.status="play";HS.last=null;for(const id of HS.order)HS.teams[id].cool=0}
+// Retorna ok, wrong, wait (esperar depois de errar), taken ou late.
+function hostAnswer(tid,round,i,w,now=Date.now()){
+  const t=HS.teams[tid];
+  if(!t||HS.status!=="play"||round!==HS.round) return {r:"late"};
+  const word=HS.puz.words[i];if(!word) return {r:"late"};
+  if(word.by) return {r:"taken",by:HS.teams[word.by]?HS.teams[word.by].name:""};
+  if(now<t.cool) return {r:"wait",ms:t.cool-now};
+  if(K.norm(w)!==word.g){t.cool=now+3000;return {r:"wrong"}}
+  word.by=tid;t.score++;HS.last={i,tid};
+  if(HS.puz.words.every(x=>x.by)) HS.status="done";
+  return {r:"ok"};
+}
+function teamView(tid){
+  const t=HS.teams[tid];if(!t) return null;
+  const p=HS.puz,lw=HS.last&&p?p.words[HS.last.i]:null;
+  return {t:"state",status:HS.status,round:HS.round,name:t.name,color:t.color,score:t.score,
+    rows:p?p.rows:0,cols:p?p.cols:0,
+    words:p?p.words.map(w=>({num:w.num,dir:w.dir,len:w.g.length,clue:w.clue,ref:w.ref,r:w.r,c:w.c,
+      g:w.by?w.g:null,color:w.by?HS.teams[w.by].color:null,mine:w.by===tid})):[],
+    last:lw?{w:lw.w,clue:lw.clue,ref:lw.ref,team:HS.teams[HS.last.tid].name,color:HS.teams[HS.last.tid].color}:null,
+    board:K.ranking(HS.teams,HS.order,tid).map(x=>({name:x.name,color:x.color,score:x.score,me:x.me}))};
+}
+function sendAll(){if(room&&HS)for(const id of HS.order)room.sendTo(id,teamView(id))}
+function onHostData(c,m){
+  if(!HS) return;
+  if(m.t==="hello"){
+    const tid=String(m.tid||"").slice(0,40),name=String(m.name||"").trim().slice(0,20)||"Equipe";if(!tid)return;
+    c.tid=tid;if(hostJoin(tid,name))K.toast(`${name} entrou`);save();sendAll();render();return;
+  }
+  if(!c.tid) return;
+  if(m.t==="sync"){room.sendTo(c.tid,teamView(c.tid));return}
+  if(m.t==="answer"){
+    const r=hostAnswer(c.tid,m.round,+m.i,String(m.w||""));
+    if(r.r==="ok"){const w=HS.puz.words[+m.i];K.toast(`${HS.teams[c.tid].name} acertou ${w.w.toUpperCase()}`);save();sendAll();render()}
+    else room.sendTo(c.tid,{t:"msg",kind:r.r,by:r.by||"",ms:r.ms||0});
+  }
+}
+
+/* ---------- desenho da grade ---------- */
+// words: lista com r,c,dir,len,num e, quando resolvida, g e color.
+function gridHTML(rows,cols,words,cs,{selIdx=-1,clickable=false}={}){
+  const map={},nums={};
+  words.forEach((w,wi)=>{
+    nums[w.r+","+w.c]=w.num;
+    for(let i=0;i<w.len;i++){
+      const k=(w.r+(w.dir==="V"?i:0))+","+(w.c+(w.dir==="H"?i:0));
+      const x=map[k]||(map[k]={ch:"",color:"",inSel:false});
+      if(w.g&&!x.ch){x.ch=w.g[i];x.color=w.color}
+      if(wi===selIdx)x.inSel=true;
+    }
+  });
+  let h="";
+  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+    const k=r+","+c,x=map[k];
+    if(!x){h+=`<div class="xc"></div>`;continue}
+    h+=`<div class="xc on ${x.inSel?"sel":""} ${x.ch?"solved":""}" ${clickable?`data-cell="${k}"`:""} style="${x.color?`--c:${x.color};`:""}">${nums[k]?`<span class="num">${nums[k]}</span>`:""}${x.ch}</div>`;
+  }
+  return `<div class="xgrid" style="grid-template-columns:repeat(${cols},${cs}px);grid-auto-rows:${cs}px;font-size:${Math.round(cs*.55)}px">${h}</div>`;
+}
+function localWords(){return LS.puz.words.map(w=>({num:w.num,dir:w.dir,len:w.g.length,r:w.r,c:w.c,g:w.by!==null?w.g:null,color:w.by===null?null:w.by>=0?LS.teams[w.by].color:"var(--absent)",clue:w.clue,ref:w.ref}))}
+function hostWords(){return HS.puz.words.map(w=>({num:w.num,dir:w.dir,len:w.g.length,r:w.r,c:w.c,g:w.by?w.g:null,color:w.by?HS.teams[w.by].color:null,clue:w.clue,ref:w.ref}))}
+function tvCell(rows,cols,wide){return Math.max(20,Math.min(64,Math.floor(Math.min((window.innerHeight-140)/rows,(Math.min(window.innerWidth,1500)*(wide?0.55:1)-40)/cols))))}
+function phoneCell(rows,cols){return Math.max(14,Math.min(30,Math.floor(Math.min((Math.min(window.innerWidth,560)-40)/cols,(window.innerHeight-430)/rows))))}
+function clueList(words,{selIdx=-1,clickable=false}={}){
+  const item=(w,i)=>`<li><button ${clickable?`data-act="selw" data-v="${i}"`:"disabled"} class="${i===selIdx?"cur":""} ${w.g?"done":""}" style="${w.color?`--c:${w.color}`:""}"><b>${w.num}</b><span>${K.esc(w.clue)}${w.ref?` <em>(${K.esc(w.ref)})</em>`:""}${w.g?` <strong>${K.esc(w.g)}</strong>`:""}</span></button></li>`;
+  const H=[],V=[];words.forEach((w,i)=>(w.dir==="H"?H:V).push(item(w,i)));
+  return `<div class="clues">${H.length?`<span class="label">Horizontais</span><ol>${H.join("")}</ol>`:""}${V.length?`<span class="label">Verticais</span><ol>${V.join("")}</ol>`:""}</div>`;
+}
+function answerRow(len,cs){
+  let h="";for(let i=0;i<len;i++)h+=`<div class="tile ${cur[i]?"filled":""} ${i===cur.length?"cursor":""}">${K.esc(cur[i]||"")}</div>`;
+  return `<div class="answer" data-active style="--ts:${cs}px"><div class="row" style="--n:${len}">${h}</div></div>`;
+}
+function lastBar(l){return l?`<div class="lastbar" style="--c:${l.color}"><b>${K.esc(l.w.toUpperCase())}</b> ${K.esc(l.clue)} ${l.ref?`<em>(${K.esc(l.ref)})</em>`:""}<small>${K.esc(l.team)}</small></div>`:""}
+
+/* ---------- telas ---------- */
+function render(){
+  if(HS&&view.startsWith("h-")&&view!=="h-lobby"&&view!=="h-"+HS.status) view="h-"+HS.status;
+  const v={home:vHome,teams:()=>K.teamsSetup(cfg.teams,"home"),"l-play":vLocal,"l-end":vLocalEnd,
+    "h-lobby":vLobby,"h-play":vHost,"h-done":vHost,"h-end":vHostEnd,
+    "t-join":()=>K.joinView(GAME,T.code,T.name),"t-wait":()=>K.waitView(T.code,link?link.net:"connecting"),"t-lobby":vTeamLobby,"t-play":vTeam,"t-done":vTeam,"t-end":()=>K.teamEndView(T.st,armed)}[view]||vHome;
+  ROOT.innerHTML=v();
+  if(view==="h-lobby") K.drawQR(ROOT);
+}
+function vHome(){
+  const t=n=>`<button class="theme" data-act="theme" data-v="${K.esc(n)}" aria-pressed="${cfg.theme===n}">${K.esc(n)}</button>`;
+  return `<div class="scroll narrow">
+    <button class="tohub" data-act="tocruz">← Cruzadinha</button>
+    <div class="hero"><h1 class="brand">Cruzadinha no Telão<span>Equipes disputam quem acerta mais palavras.</span></h1></div>
+    ${LS&&LS.status!=="end"?`<button class="cta resume" data-act="resumeL">Continuar partida no telão</button>`:""}
+    ${HS&&HS.status!=="end"?`<button class="cta resume" data-act="resumeH">Voltar para a sala ${K.esc(HS.code)}</button>`:""}
+    <div class="field"><span class="label">Tema</span><div class="themes">${THEMES.map(t).join("")}${t(ALL)}</div></div>
+    <div class="field"><span class="label">Tamanho</span><div class="seg3">${Object.entries(SIZES).map(([k,v])=>`<button data-act="size" data-v="${k}" aria-pressed="${cfg.size===k}">${v.label}<small>${v.n} palavras</small></button>`).join("")}</div></div>
+    <div class="modes">
+      <button class="mode" data-act="local"><b>Só o telão</b><span>A grade grande na TV. As equipes respondem em voz alta, quem comanda digita a palavra e toca na equipe que acertou. Não precisa de internet.</span></button>
+      <button class="mode" data-act="host"><b>Telão + celulares</b><span>Cada equipe responde as dicas no celular. A primeira que acertar fica com a palavra, e a TV pinta a grade com a cor dela.</span></button>
+    </div>
+  </div>`;
+}
+function vLocal(){
+  const wide=window.innerWidth>=900,p=LS.puz,cs=tvCell(p.rows,p.cols,wide),w=p.words[sel],words=localWords();
+  const useKb=kbOn===null?(matchMedia("(pointer:coarse)").matches||!wide):kbOn;
+  const lw=LS.last>=0?p.words[LS.last]:null;
+  const picker=pick?`<div class="overlay"><div class="pickbox"><span class="label">Quem acertou</span><p class="word sm">${K.esc(p.words[pick.i].w.toUpperCase())}</p>
+    <div class="pickteams">${LS.teams.map((t,i)=>`<button class="pt" style="--c:${t.color}" data-act="claim" data-v="${i}">${K.esc(t.name)}</button>`).join("")}</div>
+    <button class="ghost" data-act="cancelpick">Cancelar</button></div></div>`:"";
+  const done=LS.status==="done"?`<div class="overlay"><div class="pickbox"><span class="label">Cruzadinha completa</span><p class="word sm">Parabéns!</p>
+    ${K.scoreList(LS.teams.slice().sort((a,b)=>b.score-a.score))}
+    <button class="cta" data-act="localnext">Nova cruzadinha</button><button class="ghost" data-act="localend">Ver resultado final</button></div></div>`:"";
+  const solved=w.by!==null;
+  return `<div class="tv ${wide?"wide":""}">
+    <div class="tvtop">${K.backBtn(armed)}<span class="label">${K.esc(LS.theme)} · cruzadinha ${LS.round}</span>${K.fsBtn()}</div>
+    <div class="tvbody">
+      <div class="boardcol center">${gridHTML(p.rows,p.cols,words,cs,{selIdx:sel,clickable:true})}</div>
+      <div class="side">
+        ${K.scoreList(LS.teams.map(t=>({...t})).sort((a,b)=>b.score-a.score))}
+        <div class="cluebox"><small>${w.num} ${dirName(w.dir)} · ${w.g.length} letras</small>${K.esc(w.clue)} ${w.ref?`<em>(${K.esc(w.ref)})</em>`:""}</div>
+        ${solved?`<p class="hint">Esta já foi respondida. Escolha outra dica.</p>`:answerRow(w.g.length,Math.min(52,Math.floor(340/w.g.length)))}
+        ${!solved&&useKb?K.keyboard(true):""}
+        <div class="tools"><button class="mini-btn" data-act="prevw">‹ Dica anterior</button><button class="mini-btn" data-act="nextw">Próxima dica ›</button>
+          ${solved?"":`<button class="mini-btn" data-act="revealw">Revelar palavra</button>`}<button class="mini-btn" data-act="kb">${useKb?"Esconder teclado":"Teclado na tela"}</button>
+          <button class="mini-btn" data-act="localnext">Nova cruzadinha</button><button class="mini-btn" data-act="localend">Encerrar</button></div>
+        ${lastBar(lw&&lw.by>=0?{w:lw.w,clue:lw.clue,ref:lw.ref,team:LS.teams[lw.by].name,color:LS.teams[lw.by].color}:null)}
+        ${clueList(words,{selIdx:sel,clickable:true})}
+      </div>
+    </div>${picker}${done}</div>`;
+}
+function vLocalEnd(){return K.finalView(LS.teams.map(t=>({...t})).sort((a,b)=>b.score-a.score),{armed,againAct:"localagain",closeAct:"home"})}
+function vLobby(){
+  return K.lobby({code:HS.code,url:location.href.split(/[?#]/)[0]+"?xtv="+HS.code,title:`${GAME} · ${HS.theme} · ${SIZES[HS.size].label}`,
+    teams:HS.order.map(id=>({id,...HS.teams[id]})),online:id=>room&&room.online(id),net:room?room.net:"off",armed});
+}
+function vHost(){
+  const wide=window.innerWidth>=900,p=HS.puz,cs=tvCell(p.rows,p.cols,wide),words=hostWords();
+  const lw=HS.last?p.words[HS.last.i]:null,lt=HS.last?HS.teams[HS.last.tid]:null;
+  const done=HS.status==="done"?`<div class="overlay"><div class="pickbox"><span class="label">Cruzadinha completa</span><p class="word sm">Parabéns!</p>
+    ${K.scoreList(K.ranking(HS.teams,HS.order))}
+    <button class="cta" data-act="hostnext">Nova cruzadinha</button><button class="ghost" data-act="hostend">Ver resultado final</button></div></div>`:"";
+  return `<div class="tv ${wide?"wide":""}">
+    <div class="tvtop">${K.backBtn(armed)}<span class="label">${K.esc(HS.theme)} · cruzadinha ${HS.round} · ${words.filter(w=>w.g).length}/${words.length}</span>${K.fsBtn()}</div>
+    ${K.netLine(room?room.net:"off")}
+    <div class="tvbody">
+      <div class="boardcol center">${gridHTML(p.rows,p.cols,words,cs)}</div>
+      <div class="side">
+        ${K.scoreList(K.ranking(HS.teams,HS.order))}
+        ${lastBar(lw?{w:lw.w,clue:lw.clue,ref:lw.ref,team:lt.name,color:lt.color}:null)}
+        ${clueList(words)}
+        <div class="tools"><button class="mini-btn" data-act="hostnext">Nova cruzadinha</button><button class="mini-btn" data-act="hostend">Encerrar</button></div>
+        <p class="hint">Para entrar agora: ${K.esc((location.href.split(/[?#]/)[0]+"?xtv="+HS.code).replace(/^https?:\/\//,""))}</p>
+      </div>
+    </div>${done}</div>`;
+}
+function vHostEnd(){return K.finalView(K.ranking(HS.teams,HS.order),{armed,againAct:"hostagain",closeAct:"hostclose",closeLabel:"Fechar a sala"})}
+function vTeamLobby(){return `<div class="col">${K.teamHead(T.st,link.net,armed)}<div class="center-box"><span class="label">Vocês estão na sala!</span><p class="word sm">Olhem para o telão</p><p class="hint">O jogo começa quando o telão iniciar.</p></div></div>`}
+function vTeam(){
+  const s=T.st,cs=phoneCell(s.rows,s.cols);
+  if(!s.words[sel]||s.words[sel].g){const i=s.words.findIndex(w=>!w.g);if(i>=0)sel=i}
+  const w=s.words[sel],open=s.status==="play"&&w&&!w.g;
+  const left=s.words.filter(x=>!x.g).length;
+  return `<div class="col">${K.teamHead(s,link.net,armed)}
+    <div class="stage">${gridHTML(s.rows,s.cols,s.words,cs,{selIdx:open?sel:-1,clickable:true})}</div>
+    ${s.status==="done"||!left?`<div class="center-box"><p class="word sm">Cruzadinha completa!</p><p class="hint">Olhem o telão.</p></div>`:`
+    <div class="cluebar"><button data-act="prevw" aria-label="Dica anterior">‹</button>
+      <div class="clue"><small>${w.num} ${dirName(w.dir)} · ${w.len} letras · faltam ${left}</small>${K.esc(w.clue)} ${w.ref?`<em>(${K.esc(w.ref)})</em>`:""}</div>
+      <button data-act="nextw" aria-label="Próxima dica">›</button></div>
+    ${answerRow(w.len,Math.min(44,Math.floor((Math.min(window.innerWidth,560)-40)/w.len)-6))}
+    ${K.keyboard(open&&!pendingAns&&!!link.conn)}`}
+  </div>`;
+}
+
+/* ---------- digitação ---------- */
+function curLen(){
+  if(view==="l-play"){const w=LS.puz.words[sel];return w.by===null?w.g.length:0}
+  if(view==="t-play"){const w=T.st.words[sel];return w&&!w.g&&T.st.status==="play"&&!pendingAns?w.len:0}
+  return 0;
+}
+function press(k){
+  if(pick) return;
+  const n=curLen();if(!n) return;
+  if(k==="BACK"){cur=cur.slice(0,-1);render();return}
+  if(k==="ENTER"){
+    if(cur.length<n){shake();K.toast(`A resposta tem ${n} letras`);return}
+    if(view==="l-play"){
+      if(localCheck(sel,cur)){pick={i:sel};cur="";render()}
+      else{shake();K.toast("Não é essa");}
+    } else {
+      pendingAns=true;
+      if(!link.send({t:"answer",round:T.st.round,i:sel,w:cur})){pendingAns=false;K.toast("Sem conexão com o telão");return}
+      render();setTimeout(()=>{if(pendingAns){pendingAns=false;render()}},4000);
+    }
+    return;
+  }
+  if(/^[A-Z]$/.test(k)&&cur.length<n){cur+=k;render()}
+}
+function shake(){const r=ROOT.querySelector("[data-active]");if(r){r.classList.remove("shake");void r.offsetWidth;r.classList.add("shake")}}
+function wordsNow(){return view==="l-play"?LS.puz.words.map(w=>({...w,len:w.g.length,g:w.by!==null?w.g:null})):T.st.words}
+function moveSel(d){const ws=wordsNow();for(let k=1;k<=ws.length;k++){const i=(sel+d*k+ws.length*k)%ws.length;if(!ws[i].g){sel=i;break}}cur=""}
+function tapCell(key){
+  const [r,c]=key.split(",").map(Number),ws=wordsNow();
+  const hits=ws.map((w,i)=>({w,i})).filter(({w})=>Array.from({length:w.len},(_,j)=>[w.r+(w.dir==="V"?j:0),w.c+(w.dir==="H"?j:0)]).some(([a,b])=>a===r&&b===c));
+  if(!hits.length) return;
+  const open=hits.filter(h=>!h.w.g), list=open.length?open:hits;
+  const k=list.findIndex(h=>h.i===sel);
+  sel=list[(k+1)%list.length].i;cur="";render();
+}
+
+/* ---------- celular: estado vindo da TV ---------- */
+function onTeamState(m){
+  if(m.t==="msg"){
+    pendingAns=false;
+    if(m.kind==="wrong"){shake();K.toast("Não é essa. Esperem 3 segundos.");cur=""}
+    else if(m.kind==="wait"){K.toast("Esperem um pouquinho para tentar de novo")}
+    else if(m.kind==="taken"){K.toast(m.by?`${m.by} acertou essa antes!`:"Outra equipe acertou antes!");cur=""}
+    render();return;
+  }
+  if(m.t!=="state") return;
+  const prev=T.st;T.st=m;
+  if(prev&&prev.round!==m.round){sel=0;cur=""}
+  if(prev&&m.score>prev.score){K.toast("Acertaram! +1 ponto");cur=""}
+  if(prev&&prev.words[sel]&&!prev.words[sel].g&&m.words[sel]&&m.words[sel].g) cur="";
+  pendingAns=false;
+  view=m.status==="lobby"?"t-lobby":m.status==="end"?"t-end":"t-"+m.status;
+  K.keepAwake();render();
+}
+
+/* ---------- ações ---------- */
+function act(x,v){
+  if(x!=="back") armed=false;
+  switch(x){
+    case "tocruz": HUB.go("cruz"); break;
+    case "home": if(view==="teams")cfg.teams=K.readTeams(ROOT,cfg.teams); view="home"; save(); render(); break;
+    case "theme": cfg.theme=v; save(); render(); break;
+    case "size": cfg.size=v; save(); render(); break;
+    case "local": view="teams"; render(); break;
+    case "addteam": cfg.teams=K.readTeams(ROOT,cfg.teams); if(cfg.teams.length<6)cfg.teams.push(`Equipe ${cfg.teams.length+1}`); render(); break;
+    case "delteam": cfg.teams=K.readTeams(ROOT,cfg.teams); cfg.teams.splice(+v,1); render(); break;
+    case "startlocal": cfg.teams=K.readTeams(ROOT,cfg.teams); localStart(); view="l-play"; save(); K.keepAwake(); render(); break;
+    case "resumeL": view=LS.status==="end"?"l-end":"l-play"; K.keepAwake(); render(); break;
+    case "selw": sel=+v; cur=""; render(); break;
+    case "prevw": moveSel(-1); render(); break;
+    case "nextw": moveSel(1); render(); break;
+    case "kb": kbOn=!(kbOn===null?(matchMedia("(pointer:coarse)").matches||window.innerWidth<900):kbOn); render(); break;
+    case "claim": if(pick){localClaim(pick.i,+v);pick=null;if(LS.status==="play")moveSel(1);save();render()} break;
+    case "cancelpick": pick=null; render(); break;
+    case "revealw": if(LS.puz.words[sel].by===null){localClaim(sel,-1);cur="";if(LS.status==="play")moveSel(1);save();render()} break;
+    case "localnext": LS.round++; LS.puz=newPuzzle(LS.theme,LS.size); LS.last=-1; LS.status="play"; sel=0; cur=""; save(); render(); break;
+    case "localend": LS.status="end"; view="l-end"; save(); render(); break;
+    case "localagain": LS.teams.forEach(t=>t.score=0); LS.round=1; LS.puz=newPuzzle(LS.theme,LS.size); LS.last=-1; LS.status="play"; sel=0; view="l-play"; save(); render(); break;
+    case "fs": K.toggleFs(); setTimeout(render,300); break;
+    case "host": hostCreate(); view="h-lobby"; openRoom(); save(); K.keepAwake(); render(); break;
+    case "resumeH": view=HS.status==="lobby"?"h-lobby":"h-"+HS.status; openRoom(); K.keepAwake(); render(); break;
+    case "hoststart": case "hostnext": hostRound(); view="h-play"; save(); sendAll(); render(); break;
+    case "hostend": HS.status="end"; view="h-end"; save(); sendAll(); render(); break;
+    case "hostagain": for(const id of HS.order)HS.teams[id].score=0; HS.round=0; hostRound(); view="h-play"; save(); sendAll(); render(); break;
+    case "hostclose": if(room){room.close();room=null} HS=null; save(); view="home"; render(); break;
+    case "teamjoin":{
+      const name=(ROOT.querySelector("#tk-name")||{}).value||"";
+      if(!name.trim()){K.toast("Escreva o nome da equipe");return}
+      T.name=name.trim().slice(0,20);K.put(TEAMSAVE,{code:T.code,tid:T.tid,name:T.name});
+      view="t-wait";openLink();K.keepAwake();render();break;}
+    case "teamcancel": if(link){link.close();link=null} T=null; K.clearParam(); view="home"; HUB.go("hub"); break;
+    case "retry": if(link)link.retry(); else if(room)room.retry(); break;
+    case "back":
+      if(!armed){armed=true;render();setTimeout(()=>{if(armed){armed=false;render()}},3000);break}
+      armed=false;
+      if(view.startsWith("t-")){act("teamcancel");break}
+      if(view.startsWith("h-")){if(room){room.close();room=null}}
+      pick=null;view="home";render();break;
+  }
+}
+function openRoom(){if(room)room.close();room=K.host({prefix:PREFIX,code:HS.code,onData:onHostData,onChange:()=>{if(room&&HS&&room.code!==HS.code){HS.code=room.code;save()}if(view.startsWith("h-"))render()},canRecode:()=>HS&&HS.status==="lobby"&&!HS.order.length})}
+function openLink(){if(link)link.close();link=K.team({prefix:PREFIX,code:T.code,tid:T.tid,name:T.name,onState:onTeamState,onChange:()=>{if(view.startsWith("t-"))render()}})}
+ROOT.addEventListener("click",e=>{
+  const k=e.target.closest("[data-k]");if(k){press(k.dataset.k);return}
+  const c=e.target.closest("[data-cell]");if(c){tapCell(c.dataset.cell);return}
+  const a=e.target.closest("[data-act]");if(a)act(a.dataset.act,a.dataset.v);
+});
+ROOT.addEventListener("keydown",e=>{if(e.target.id==="tk-name"&&e.key==="Enter"){e.preventDefault();act("teamjoin")}});
+document.addEventListener("keydown",e=>{
+  if(HUB.active!=="cruztv"||e.target.tagName==="INPUT"||e.metaKey||e.ctrlKey||e.altKey)return;
+  if(e.key==="Enter"){e.preventDefault();press("ENTER")}
+  else if(e.key==="Backspace"){e.preventDefault();press("BACK")}
+  else if(e.key==="ArrowRight"||e.key==="ArrowDown"){if(/l-play|t-play/.test(view)){e.preventDefault();moveSel(1);render()}}
+  else if(e.key==="ArrowLeft"||e.key==="ArrowUp"){if(/l-play|t-play/.test(view)){e.preventDefault();moveSel(-1);render()}}
+  else{const c=K.norm(e.key);if(c.length===1)press(c)}
+});
+document.addEventListener("visibilitychange",()=>{if(HUB.active!=="cruztv"||document.visibilityState!=="visible")return;if(link)link.revive();if(room)room.revive();K.keepAwake()});
+window.addEventListener("resize",()=>{if(HUB.active==="cruztv"&&/play|done/.test(view))render()});
+
+return {
+  mount(){
+    if(!booted){
+      booted=true;
+      const s=K.get(SAVE);if(s){if(s.cfg)cfg=Object.assign(cfg,s.cfg);if(s.LS&&s.LS.puz)LS=s.LS;if(s.HS&&s.HS.code)HS=s.HS}
+      const code=K.norm(new URLSearchParams(location.search).get("xtv")).slice(0,5);
+      if(code.length===5){
+        const p=K.get(TEAMSAVE);
+        T={code,tid:(p&&p.tid)||K.genId(),name:(p&&p.code===code&&p.name)||(p&&p.name)||"",st:null};
+        if(p&&p.code===code&&p.name){view="t-wait";openLink();render();return}
+        view="t-join";
+      }
+    }
+    render();
+  },
+  unmount(){},
+  _test:{localStart,localCheck,localClaim,hostCreate,hostJoin,hostRound,hostAnswer,teamView,get LS(){return LS},get HS(){return HS},set cfg(v){cfg=v},
+    show(v){view=v;render()},team(m){T={code:"ABCDE",tid:"x",name:m.name,st:null};link={net:"online",conn:{},send(){return true},close(){},revive(){}};onTeamState(m)}}
+};
+})();
+
 </script>
 <script>
 // Link do QR (?sala=) abre direto no Termo; senão, volta ao último jogo aberto.
 (function(){
-  const sala=new URLSearchParams(location.search).get("sala");
+  const q=new URLSearchParams(location.search), sala=q.get("sala");
+  if(q.get("tv")){HUB.go("telao");return}
+  if(q.get("ctv")){HUB.go("cacatv");return}
+  if(q.get("xtv")){HUB.go("cruztv");return}
   let last="hub";try{last=localStorage.getItem("jogos-ultimo")||"hub"}catch(e){}
-  HUB.go(sala?"termo":(["termo","caca","cruz"].includes(last)?last:"hub"));
+  HUB.go(sala?"termo":(["termo","caca","cruz","telao","cacatv","cruztv"].includes(last)?last:"hub"));
 })();
 </script>
 </body>
